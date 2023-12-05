@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://gohtktycdvh6"]
+
+[ext_resource type="Script" path="res://entities/projectiles/Projectile.cs" id="1_wsad4"]
+[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_otdn2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq4ws"]
+atlas = ExtResource("2_otdn2")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="Animation" id="Animation_uq50p"]
+resource_name = "projectile"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -3.14159, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3npw"]
+_data = {
+"projectile": SubResource("Animation_uq50p")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wj3io"]
+radius = 6.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fvbue"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimationPlayer:current_animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Axe" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wsad4")
+
+[node name="FireTile" type="Sprite2D" parent="."]
+position = Vector2(5, 0)
+texture = SubResource("AtlasTexture_sq4ws")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p3npw")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4)
+shape = SubResource("CircleShape2D_wj3io")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fvbue")

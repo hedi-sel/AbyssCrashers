@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciju1s1l2l2x5"]
+
+[ext_resource type="PackedScene" uid="uid://b68dgp3ncejf0" path="res://ui/MultiplayerMenu.tscn" id="1_nq01g"]
+[ext_resource type="PackedScene" uid="uid://b685po32bvwpa" path="res://world/world.tscn" id="2_r1qar"]
+
+[node name="Scene" type="Node2D"]
+y_sort_enabled = true
+
+[node name="MultiplayerUI" parent="." instance=ExtResource("1_nq01g")]
+World = ExtResource("2_r1qar")
