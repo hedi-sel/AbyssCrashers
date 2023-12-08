@@ -2,9 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://71225hmnokjn" path="res://world/rooms/sewers_tileset.tres" id="1_fxxb8"]
 
-[node name="Sewers1" type="Node2D"]
-
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap"]
 tile_set = ExtResource("1_fxxb8")
 format = 2
 layer_0/name = "floor"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://gohtktycdvh6"]
 
-[ext_resource type="Script" path="res://entities/projectiles/Projectile.cs" id="1_wsad4"]
+[ext_resource type="Script" path="res://entities/projectiles/ProjectileAxe.cs" id="1_klpdu"]
 [ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_otdn2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sq4ws"]
@@ -10,6 +10,7 @@ region = Rect2(144, 96, 16, 16)
 [sub_resource type="Animation" id="Animation_uq50p"]
 resource_name = "projectile"
 loop_mode = 1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -35,14 +36,18 @@ radius = 6.0
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("AnimationPlayer:current_animation")
+properties/1/path = NodePath(".:Velocity")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:Range")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [node name="Axe" type="Area2D"]
+rotation = -0.628318
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_wsad4")
+script = ExtResource("1_klpdu")
 
 [node name="FireTile" type="Sprite2D" parent="."]
 position = Vector2(5, 0)
@@ -52,6 +57,7 @@ texture = SubResource("AtlasTexture_sq4ws")
 libraries = {
 "": SubResource("AnimationLibrary_p3npw")
 }
+speed_scale = 1.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -4)

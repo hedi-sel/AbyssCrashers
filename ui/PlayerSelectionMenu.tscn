@@ -1,0 +1,148 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbsx03l0c4svd"]
+
+[ext_resource type="Texture2D" uid="uid://du8b2tgf7ytj6" path="res://assets/splashes/warrior.jpg" id="1_2ywke"]
+[ext_resource type="Script" path="res://ui/PlayerSelect.cs" id="1_4uwaw"]
+[ext_resource type="Texture2D" uid="uid://bcqkg20y2wulp" path="res://assets/splashes/mage.jpg" id="2_fmurp"]
+[ext_resource type="Texture2D" uid="uid://b7cn6jjrrojpw" path="res://assets/splashes/rogue.jpg" id="3_fdda3"]
+[ext_resource type="Texture2D" uid="uid://64cufyavmdd5" path="res://assets/splashes/huntress.jpg" id="4_6fi5l"]
+
+[node name="PlayerSelectionMenu" type="CanvasLayer"]
+process_mode = 3
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="PlayerSelect" type="Button" parent="GridContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_4uwaw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/PlayerSelect"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/PlayerSelect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_2ywke")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GridContainer/PlayerSelect/VBoxContainer"]
+layout_mode = 2
+text = "The powerful warrior will easily keep enemy hoards in check
+ "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayerSelect2" type="Button" parent="GridContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4uwaw")
+ClassId = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/PlayerSelect2"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/PlayerSelect2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("2_fmurp")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GridContainer/PlayerSelect2/VBoxContainer"]
+layout_mode = 2
+text = "The mage uses tactical positiong to wreck havoc in the right conditions"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayerSelect3" type="Button" parent="GridContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/PlayerSelect3"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/PlayerSelect3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_fdda3")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GridContainer/PlayerSelect3/VBoxContainer"]
+layout_mode = 2
+text = "High risk high reward, the rogue will deal massive damage at close range
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayerSelect4" type="Button" parent="GridContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/PlayerSelect4"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/PlayerSelect4/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("4_6fi5l")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GridContainer/PlayerSelect4/VBoxContainer"]
+layout_mode = 2
+text = "The huntress uses the environment to safely kill her prey from a distance"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

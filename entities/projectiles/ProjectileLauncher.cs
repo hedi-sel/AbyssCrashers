@@ -13,7 +13,7 @@ public partial class ProjectileLauncher : Node2D
 
     private Random _random = new();
 
-    private Timer _delay = new Timer()
+    private Timer _delay = new ()
     {
         Autostart = false,
         OneShot = true,
@@ -28,23 +28,22 @@ public partial class ProjectileLauncher : Node2D
 
     public bool KeepActive(Vector2 direction) //Call every frame whule active
     {
-        if (_delay.IsStopped())
-        {
-            Launch(direction);
-            _delay.Start();
-            return true;
-        }
+        if (!_delay.IsStopped()) return false;
 
-        return false;
+        Launch(direction);
+        _delay.Start();
+        return true;
+
     }
 
     private void Launch(Vector2 direction)
     {
+        Position = direction.Normalized() * Position.Length();
         var projectileScene = Projectile.Instantiate<Projectile>();
         projectileScene.Initialize(direction * ProjectileSpeed, Range);
         projectileScene.Name = "Projectile_" + _random.Next();
 
         Instance.Get<ProjectileLayer>().AddChild(projectileScene);
-        projectileScene.GlobalPosition = this.GlobalPosition;
+        projectileScene.GlobalPosition = GlobalPosition;
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bxjcby4yxi80m"]
+[gd_scene load_steps=23 format=3 uid="uid://bxjcby4yxi80m"]
 
 [ext_resource type="Script" path="res://entities/monsters/FollowerControl.cs" id="1_erdai"]
 [ext_resource type="Texture2D" uid="uid://dpaibsy35vof3" path="res://sprites/monsters/rat.png" id="2_arnyk"]
@@ -120,23 +120,43 @@ animations = [{
 radius = 4.0
 height = 12.0
 
+[sub_resource type="Animation" id="Animation_g0ox0"]
+resource_name = "run"
+length = 1.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70e3i"]
+_data = {
+"run": SubResource("Animation_g0ox0")
+}
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5427x"]
-properties/0/path = NodePath(".:position")
+properties/0/path = NodePath("AnimationPlayer:current_animation")
 properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("AnimationPlayer:current_animation")
+properties/0/replication_mode = 2
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath("AnimatedSprite2D:flip_h")
+properties/2/path = NodePath(".:position")
 properties/2/spawn = true
-properties/2/replication_mode = 2
+properties/2/replication_mode = 1
 
-[node name="Rat" type="RigidBody2D"]
-position = Vector2(288, 146)
+[node name="Rat" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 15
-mass = 4.0
-lock_rotation = true
 script = ExtResource("1_erdai")
 Hp = 3.0
 Speed = 20.0
@@ -149,6 +169,10 @@ position = Vector2(1, 2)
 shape = SubResource("CapsuleShape2D_7wmr2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_70e3i")
+}
+speed_scale = 1.3
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5427x")

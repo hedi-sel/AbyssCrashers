@@ -5,13 +5,14 @@ namespace AbyssCrashers.objects;
 
 public partial class Projectile : Area2D
 {
-    public Vector2 Velocity { get; private set; }
-    public float Range { get; private set; }
+    [Export] public Vector2 Velocity { get; private set; }
+    [Export] public float Range { get; private set; }
+
     public float TraversedRange { get; private set; }
 
     private float _velocityLength;
 
-    public AnimationPlayer AnimationPlayer { get; private set; }
+    protected AnimationPlayer AnimationPlayer { get; private set; }
 
     public void Initialize(Vector2 velocity, float range)
     {
@@ -23,17 +24,15 @@ public partial class Projectile : Area2D
 
     public override void _Ready()
     {
-        if (!IsMultiplayerAuthority())
-        {
-            SetProcess(false);
-            return;
-        }
-
         base._Ready();
-        AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        AnimationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
         AnimationPlayer?.Play("projectile");
+        if (!IsMultiplayerAuthority())
+            SetProcess(false);
+        else
+            BodyEntered += OnBodyEntered;
 
-        BodyEntered += OnBodyEntered;
+
     }
 
     private void OnBodyEntered(Node2D body)

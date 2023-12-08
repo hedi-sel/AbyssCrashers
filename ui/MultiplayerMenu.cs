@@ -5,8 +5,6 @@ public partial class MultiplayerMenu : CanvasLayer
 {
     private const int Port = 2461;
 
-    [Export] public PackedScene World;
-
     [Export] public Button Host;
     [Export] public Button Join;
     [Export] public LineEdit Ip;
@@ -38,7 +36,7 @@ public partial class MultiplayerMenu : CanvasLayer
         }
 
         Multiplayer.MultiplayerPeer = peer;
-        StartGame();
+        MultiplayerConnected();
         GD.Print("Server started");
     }
 
@@ -51,7 +49,6 @@ public partial class MultiplayerMenu : CanvasLayer
             return;
         }
 
-        GD.Print(ip);
         var peer = new ENetMultiplayerPeer();
         peer.CreateClient(ip, Port);
         if (peer.GetConnectionStatus() == MultiplayerPeer.ConnectionStatus.Disconnected)
@@ -61,14 +58,11 @@ public partial class MultiplayerMenu : CanvasLayer
         }
 
         Multiplayer.MultiplayerPeer = peer;
-        StartGame();
+        MultiplayerConnected();
     }
 
-
-    void StartGame()
+    private void MultiplayerConnected()
     {
-        Hide();
-        var worldScene = World.Instantiate();
-        GetParent().AddChild(worldScene);
+        GetParent<MainScene>().OnMultiplayerConnected();
     }
 }
