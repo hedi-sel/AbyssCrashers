@@ -23,16 +23,16 @@ public partial class MainScene : Node2D
         _multiplayerMenu.Hide();
         _playerSelectionMenu.Show();
         LoadWorld();
-        // if (!Multiplayer.IsServer())
-        //     StartGame();
+        if (!Multiplayer.IsServer())
+            StartGame();
     }
 
     public void OnPlayerSelected(PlayerClass.Id selectedClass)
     {
         _playerSelectionMenu.Hide();
         PlayerSelected?.Invoke(selectedClass);
-        // if (Multiplayer.IsServer())
-        StartGame();
+        if (Multiplayer.IsServer())
+            StartGame();
     }
 
     private void LoadWorld()

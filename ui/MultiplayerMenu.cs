@@ -21,6 +21,8 @@ public partial class MultiplayerMenu : CanvasLayer
 
         Host.Pressed += OnHostPressed;
         Join.Pressed += () => OnJoinPressed(Ip.Text);
+
+        Multiplayer.ConnectedToServer += MultiplayerConnected;
     }
 
     private void OnHostPressed()
@@ -58,7 +60,6 @@ public partial class MultiplayerMenu : CanvasLayer
         }
 
         Multiplayer.MultiplayerPeer = peer;
-        MultiplayerConnected();
     }
 
     private void MultiplayerConnected()

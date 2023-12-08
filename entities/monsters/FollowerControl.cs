@@ -7,7 +7,8 @@ public partial class FollowerControl : MonsterControl
     public override void _Ready()
     {
         base._Ready();
-        AnimationPlayer.Play("run");
+        if (!Multiplayer.IsServer())
+            AnimationPlayer.Play("run");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

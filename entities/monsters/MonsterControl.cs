@@ -17,6 +17,7 @@ public partial class MonsterControl : CharacterBody2D, IEntityControl
     public override void _Ready()
     {
         base._Ready();
+
         AnimationPlayer = GetNode<AnimationPlayer>(nameof(AnimationPlayer));
         EntityLayer = GetParent<EntityLayer>();
 

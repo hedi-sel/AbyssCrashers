@@ -4,4 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>AbyssCrashers</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="world\scripts\spawnage\" />
+  </ItemGroup>
 </Project>

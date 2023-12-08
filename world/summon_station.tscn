@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://benvf3mi6lsrr"]
 
-[ext_resource type="Script" path="res://world/scripts/SummonStation.cs" id="1_4nyoc"]
+[ext_resource type="Script" path="res://world/scripts/spawnage/SummonStation.cs" id="1_4nyoc"]
 
 [node name="SummonStation" type="Node2D" node_paths=PackedStringArray("_p2", "_p3", "_p4")]
 position = Vector2(85.5, 34)

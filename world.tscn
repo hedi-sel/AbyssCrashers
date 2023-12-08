@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://world/scripts/EntityLayer.cs" id="1_3gkwa"]
 [ext_resource type="Script" path="res://world/scripts/ProjectileLayer.cs" id="2_d6fqk"]
 [ext_resource type="PackedScene" uid="uid://benvf3mi6lsrr" path="res://world/summon_station.tscn" id="3_r3d3f"]
-[ext_resource type="Script" path="res://world/scripts/PlayerSpawner.cs" id="3_spx6s"]
+[ext_resource type="Script" path="res://world/scripts/spawnage/PlayerSpawner.cs" id="5_psbj3"]
+[ext_resource type="Script" path="res://world/scripts/spawnage/MonsterSpawner.cs" id="6_fwurc"]
+[ext_resource type="Script" path="res://world/scripts/spawnage/FolderSpawner.cs" id="7_5nb6a"]
 [ext_resource type="PackedScene" uid="uid://c2245uuqo7knp" path="res://world/rooms/sewers1.tscn" id="7_ml3v7"]
-[ext_resource type="Script" path="res://world/scripts/MonsterSpawner.cs" id="8_c32im"]
-[ext_resource type="Script" path="res://world/scripts/FolderSpawner.cs" id="8_ohd6i"]
 
 [node name="World" type="Node2D"]
 scale = Vector2(4, 4)
@@ -31,16 +31,16 @@ script = ExtResource("2_d6fqk")
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("SummonStation")]
 spawn_path = NodePath("../EntityLayer")
 spawn_limit = 4
-script = ExtResource("3_spx6s")
+script = ExtResource("5_psbj3")
 SummonStation = NodePath("../EntityLayer/SummonStation")
 Folder = "res://entities/player"
 
 [node name="MonsterSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../EntityLayer")
-script = ExtResource("8_c32im")
+script = ExtResource("6_fwurc")
 Folder = "res://entities/monsters"
 
 [node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../ProjectileLayer")
-script = ExtResource("8_ohd6i")
+script = ExtResource("7_5nb6a")
 Folder = "res://entities/projectiles"
