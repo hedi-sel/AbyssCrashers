@@ -36,7 +36,7 @@ public partial class Projectile : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (body is not IEntityControl entity)
+        if (body is not EntityControl entity)
         {
             GD.PrintErr("No EntityControl found");
             return;

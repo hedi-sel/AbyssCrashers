@@ -1,67 +1,67 @@
 [gd_scene load_steps=26 format=3 uid="uid://bxjcby4yxi80m"]
 
-[ext_resource type="Script" path="res://entities/monsters/FollowerControl.cs" id="1_erdai"]
-[ext_resource type="Texture2D" uid="uid://dpaibsy35vof3" path="res://sprites/monsters/rat.png" id="2_arnyk"]
-[ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="3_2muq4"]
+[ext_resource type="Script" path="res://entities/monsters/FollowerControl.cs" id="1_ia28i"]
+[ext_resource type="Texture2D" uid="uid://dpaibsy35vof3" path="res://sprites/monsters/rat.png" id="2_gwdor"]
+[ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="3_s2gmp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3vu3"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5vwa"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ljyky"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd2l3"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x1jve"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rudmf"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s0xqm"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbcos"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(112, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jt10j"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1rlnm"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(144, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_isf8t"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(160, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvliu"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmvrr"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(192, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_woy1r"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(208, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ksvju"]
-atlas = ExtResource("2_arnyk")
+atlas = ExtResource("2_gwdor")
 region = Rect2(224, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_733t5"]
@@ -117,15 +117,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7wmr2"]
-radius = 4.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4tsa"]
+size = Vector2(8, 9)
 
 [sub_resource type="Animation" id="Animation_g0ox0"]
 resource_name = "run"
-length = 1.2
+length = 0.72
 loop_mode = 1
-step = 0.2
+step = 0.12
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -133,7 +132,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36, 0.48, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 6, 7, 8, 9, 10]
@@ -181,22 +180,24 @@ properties/2/replication_mode = 1
 scale = Vector2(-1, 1)
 collision_layer = 2
 collision_mask = 15
-script = ExtResource("1_erdai")
+script = ExtResource("1_ia28i")
 Hp = 3.0
 Speed = 20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -2)
+position = Vector2(1, -2)
 sprite_frames = SubResource("SpriteFrames_733t5")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_7wmr2")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_i4tsa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_70e3i")
 }
-script = ExtResource("3_2muq4")
+script = ExtResource("3_s2gmp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5427x")

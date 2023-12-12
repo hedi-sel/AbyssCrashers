@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using AbyssCrashers.objects;
+using AbyssCrashers.world.scripts.helpers;
 
 public partial class ProjectileAxe : Projectile
 {
@@ -12,19 +13,18 @@ public partial class ProjectileAxe : Projectile
         AnimationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
         AnimationPlayer.Play("projectile");
 
-        if (Math.Abs(Velocity.X) > Math.Abs(Velocity.Y))
-        {
-            if (Velocity.X > 0)
-            {
-                AnimationPlayer.PlayBackwards("projectile");
-                Scale = new Vector2(-1, 1);
-            }
+        var dir = Velocity.ToCardinalDirection();
 
+        if (dir.IsHorizontal())
             AnimationPlayer.Advance(0.1);
-        }
-        else
+        if (dir == CardinalDirection.Right)
         {
-            AnimationPlayer.Advance(Velocity.Y > 0 ? 0.25 : 0.75);
+            AnimationPlayer.PlayBackwards("projectile");
+            Scale = new Vector2(-1, 1);
         }
+        else if(dir == CardinalDirection.Up)
+            AnimationPlayer.Advance(0.75);
+        else if(dir == CardinalDirection.Down)
+            AnimationPlayer.Advance(0.25);
     }
 }

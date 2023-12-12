@@ -13,7 +13,7 @@ public partial class FolderSpawner : MultiplayerSpawner
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree()
     {
-        base._Ready();
+        base._EnterTree();
         using var directory = DirAccess.Open(Folder);
         directory.ListDirBegin();
         var file = directory.GetNext();
@@ -25,8 +25,6 @@ public partial class FolderSpawner : MultiplayerSpawner
                 AddSpawnableScene(file);
                 PackedScenes.Add(ResourceLoader.Load<PackedScene>(file));
             }
-
-            Console.WriteLine(file);
             file = directory.GetNext();
         }
     }

@@ -1,6 +1,6 @@
 using Godot;
-using System;
 using AbyssCrashers.objects;
+using AbyssCrashers.world.scripts.helpers;
 
 public partial class OrientedProjectile : Projectile
 {
@@ -9,16 +9,12 @@ public partial class OrientedProjectile : Projectile
     {
         base._Ready();
 
-        if (Math.Abs(Velocity.X) > Math.Abs(Velocity.Y))
-        {
+        var dir = Velocity.ToCardinalDirection();
+        if (dir.IsHorizontal())
             Rotation += float.Pi / 2;
-            if (Velocity.X < 0)
-                Scale = new Vector2(1, -1);
-        }
-        else
-        {
-            if (Velocity.Y > 0)
-                Rotation += float.Pi;
-        }
+        if (dir == CardinalDirection.Left)
+            Scale = new Vector2(1, -1);
+        else if (dir == CardinalDirection.Down)
+            Rotation += float.Pi;
     }
 }

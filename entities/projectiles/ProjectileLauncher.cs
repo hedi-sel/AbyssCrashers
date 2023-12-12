@@ -30,7 +30,7 @@ public partial class ProjectileLauncher : Node2D
 
     private void Launch(Vector2 direction)
     {
-        Position = direction.Normalized() * Position.Length();
+        // Position = direction.Normalized() * Position.Length();
         var projectileScene = Projectile.Instantiate<Projectile>();
         projectileScene.Initialize(direction);
         projectileScene.Name = "Projectile_" + _random.Next();

@@ -2,10 +2,8 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class MonsterControl : CharacterBody2D, IEntityControl
+public partial class MonsterControl : EntityControl
 {
-    public EntityType Type => EntityType.Monster;
-
     [Export] public float Hp = 1;
     [Export] public float Speed = 40;
 
@@ -51,7 +49,7 @@ public partial class MonsterControl : CharacterBody2D, IEntityControl
         tween.Finished += QueueFree;
     }
 
-    public void TakeDamage(Vector2 knockback, float damage)
+    public override void TakeDamage(Vector2 knockback, float damage)
     {
         Velocity = knockback * 500;
 

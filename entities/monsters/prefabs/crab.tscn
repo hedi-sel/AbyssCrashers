@@ -1,0 +1,223 @@
+[gd_scene load_steps=26 format=3 uid="uid://u3u3t5e11xs2"]
+
+[ext_resource type="Script" path="res://entities/monsters/DiagonalStriderControl.cs" id="1_rvoog"]
+[ext_resource type="Texture2D" uid="uid://t4e4olwgmtny" path="res://sprites/monsters/crab.png" id="2_1hwr0"]
+[ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="3_f3jam"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fw1c8"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jenkc"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdtpx"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh10i"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj2v1"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8j2g"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30g7j"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0jjb"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kync"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26f38"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01iy6"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3in8"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdy34"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovok8"]
+atlas = ExtResource("2_1hwr0")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_733t5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fw1c8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jenkc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdtpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh10i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj2v1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8j2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30g7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0jjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kync")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26f38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01iy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3in8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdy34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovok8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q32vd"]
+size = Vector2(11, 9)
+
+[sub_resource type="Animation" id="Animation_pg57k"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_w8k48"]
+resource_name = "attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 0]
+}
+
+[sub_resource type="Animation" id="Animation_lyqdh"]
+resource_name = "die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_farcb"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70e3i"]
+_data = {
+"RESET": SubResource("Animation_pg57k"),
+"attack": SubResource("Animation_w8k48"),
+"die": SubResource("Animation_lyqdh"),
+"run": SubResource("Animation_farcb")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5427x"]
+properties/0/path = NodePath("AnimatedSprite2D:flip_h")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:modulate")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Crab" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_rvoog")
+Hp = 3.0
+Speed = 100.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_733t5")
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -2.5)
+shape = SubResource("RectangleShape2D_q32vd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_70e3i")
+}
+script = ExtResource("3_f3jam")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5427x")

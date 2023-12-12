@@ -39,7 +39,7 @@ Folder = "res://entities/player"
 [node name="MonsterSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../EntityLayer")
 script = ExtResource("6_fwurc")
-Folder = "res://entities/monsters"
+Folder = "res://entities/monsters/prefabs"
 
 [node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../ProjectileLayer")

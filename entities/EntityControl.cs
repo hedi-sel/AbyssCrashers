@@ -2,23 +2,20 @@ using Godot;
 using System;
 using System.Linq;
 
-public interface IEntityControl
+public abstract partial class EntityControl : CharacterBody2D
 {
-    public EntityType Type { get; }
-
     public T GetComponent<T>() where T : Node2D
     {
-        var thisNode = this as Node ?? throw new Exception(nameof(IEntityControl) + " is not a node");
-        return (T)thisNode.GetChildren().First(node => node is T);
+        return (T)GetChildren().First(node => node is T);
     }
 
-    public void TakeDamage(Vector2 knockback, float damage);
-}
+    public abstract void TakeDamage(Vector2 knockback, float damage);
 
-public enum EntityType
-{
-    None,
-    Player,
-    Monster,
-    Static,
+    private bool _facingRight = true;
+    protected void FaceDirection(bool faceRight)
+    {
+        if (faceRight == _facingRight) return;
+        _facingRight = faceRight;
+        Scale = Scale.Reflect(Vector2.Up);
+    }
 }

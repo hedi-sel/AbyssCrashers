@@ -1,7 +1,8 @@
 using System;
+using AbyssCrashers.world.scripts.helpers;
 using Godot;
 
-public partial class PlayerControl : CharacterBody2D, IEntityControl
+public partial class PlayerControl : EntityControl
 {
     [Export] public int Id;
     [Export] public PlayerClass.Id PlayerClass;
@@ -11,7 +12,6 @@ public partial class PlayerControl : CharacterBody2D, IEntityControl
     private ProjectileLauncher _projectileLauncher;
     private AnimatedSprite2D _animationSprite;
 
-    public EntityType Type => EntityType.Player;
     public int RunSpeed = 120;
 
     public override void _EnterTree()
@@ -41,7 +41,7 @@ public partial class PlayerControl : CharacterBody2D, IEntityControl
         this.LoadPlayerClass();
     }
 
-    public void TakeDamage(Vector2 origin, float damage)
+    public override void TakeDamage(Vector2 origin, float damage)
     {
         throw new NotImplementedException();
     }
@@ -65,28 +65,19 @@ public partial class PlayerControl : CharacterBody2D, IEntityControl
 
         MoveAndSlide();
 
-        var attackDirection = _playerInput.Attack;
-        if (attackDirection.LengthSquared() > 0.3)
+        var attackInput = _playerInput.Attack;
+        var attackDirection = attackInput.ToCardinalDirection(0.3);
+        if (attackDirection != CardinalDirection.Null)
         {
-            if (Math.Abs(attackDirection.X) >= Math.Abs(attackDirection.Y))
-            {
-                attackDirection.Y = 0;
-                facingRight = attackDirection.X > 0;
-            }
-            else
-                attackDirection.X = 0;
+            facingRight = attackDirection == CardinalDirection.Right ? true
+                : attackDirection == CardinalDirection.Left ? false
+                : facingRight;
 
-            attackDirection = attackDirection.Normalized();
-            if (_projectileLauncher.KeepActive(attackDirection))
+            if (_projectileLauncher.KeepActive(attackDirection.ToVector()))
                 _animationPlayer.PlayEvent("attack");
         }
 
         if (facingRight.HasValue) FaceDirection(facingRight.Value);
-    }
-
-    private void FaceDirection(bool right)
-    {
-        _animationSprite.FlipH = !right;
     }
 
     public override void _ExitTree()

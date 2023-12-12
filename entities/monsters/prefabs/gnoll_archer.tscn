@@ -1,0 +1,197 @@
+[gd_scene load_steps=25 format=3 uid="uid://d1ryus6wubeb3"]
+
+[ext_resource type="Script" path="res://entities/monsters/ArcherControl.cs" id="1_iec3x"]
+[ext_resource type="Texture2D" uid="uid://j8s8lbuby6k" path="res://sprites/monsters/gnoll.png" id="2_r723n"]
+[ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="3_yqdty"]
+[ext_resource type="PackedScene" uid="uid://jnfop36r87no" path="res://entities/projectiles/ProjectileLauncher.tscn" id="4_gvcnk"]
+[ext_resource type="PackedScene" uid="uid://dm1jct8w3bhpy" path="res://entities/projectiles/prefabs/arrow_gnoll.tscn" id="5_8sj3f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5add6"]
+atlas = ExtResource("2_r723n")
+region = Rect2(0, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej6na"]
+atlas = ExtResource("2_r723n")
+region = Rect2(12, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtx7b"]
+atlas = ExtResource("2_r723n")
+region = Rect2(24, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j3hn"]
+atlas = ExtResource("2_r723n")
+region = Rect2(36, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loa2c"]
+atlas = ExtResource("2_r723n")
+region = Rect2(48, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0wpj"]
+atlas = ExtResource("2_r723n")
+region = Rect2(60, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydy6k"]
+atlas = ExtResource("2_r723n")
+region = Rect2(72, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heqjf"]
+atlas = ExtResource("2_r723n")
+region = Rect2(84, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41d21"]
+atlas = ExtResource("2_r723n")
+region = Rect2(96, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc2cp"]
+atlas = ExtResource("2_r723n")
+region = Rect2(108, 15, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xglc5"]
+atlas = ExtResource("2_r723n")
+region = Rect2(120, 15, 12, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_733t5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5add6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej6na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtx7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j3hn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loa2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0wpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydy6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heqjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41d21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc2cp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xglc5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q32vd"]
+size = Vector2(7, 9)
+
+[sub_resource type="Animation" id="Animation_pg57k"]
+length = 0.001
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_3r08j"]
+resource_name = "attack"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 3, 0]
+}
+
+[sub_resource type="Animation" id="Animation_farcb"]
+resource_name = "die"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_g0ox0"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70e3i"]
+_data = {
+"RESET": SubResource("Animation_pg57k"),
+"attack": SubResource("Animation_3r08j"),
+"die": SubResource("Animation_farcb"),
+"run": SubResource("Animation_g0ox0")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5427x"]
+properties/0/path = NodePath("AnimatedSprite2D:flip_h")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:modulate")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="GnollArcher" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_iec3x")
+Hp = 3.0
+Speed = 80.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_733t5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -1)
+shape = SubResource("RectangleShape2D_q32vd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_70e3i")
+}
+speed_scale = 0.75
+script = ExtResource("3_yqdty")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5427x")
+
+[node name="ProjectileLauncher" parent="." instance=ExtResource("4_gvcnk")]
+position = Vector2(3, -3)
+Projectile = ExtResource("5_8sj3f")

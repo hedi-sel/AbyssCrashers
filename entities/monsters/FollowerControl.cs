@@ -17,6 +17,8 @@ public partial class FollowerControl : MonsterControl
 
         var playerPos = GetClosestPlayer().Position;
         var movement = (playerPos - Position).Normalized();
+        FaceDirection(movement.X > 0);
+        
         Velocity = Velocity.MoveToward(movement * Speed, 100);
         MoveAndCollide(Velocity * (float)delta);
     }
