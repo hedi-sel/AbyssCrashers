@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://ik5dqq0gyxd8"]
+
+[ext_resource type="Script" path="res://entities/projectiles/ProjectileParticle.cs" id="1_7ljhu"]
+
+[sub_resource type="Gradient" id="Gradient_ne4np"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wj3io"]
+radius = 4.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fvbue"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("CPUParticles2D:emitting")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="MagicMissile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_7ljhu")
+Range = 120.0
+Speed = 160.0
+Cooldown = 0.5
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color_ramp = SubResource("Gradient_ne4np")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wj3io")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fvbue")

@@ -1,14 +1,16 @@
-[gd_scene load_steps=35 format=3 uid="uid://ctk085ebyx826"]
+[gd_scene load_steps=37 format=3 uid="uid://ctk085ebyx826"]
 
 [ext_resource type="Script" path="res://entities/player/PlayerControl.cs" id="1_dlikn"]
 [ext_resource type="Script" path="res://entities/projectiles/ProjectileLauncher.cs" id="2_3ldon"]
-[ext_resource type="PackedScene" uid="uid://gohtktycdvh6" path="res://entities/projectiles/axe.tscn" id="3_udb8n"]
+[ext_resource type="PackedScene" uid="uid://gohtktycdvh6" path="res://entities/projectiles/prefabs/axe.tscn" id="3_udb8n"]
 [ext_resource type="Script" path="res://entities/player/PlayerInput.cs" id="5_23pb1"]
 [ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="5_fnwem"]
 [ext_resource type="Texture2D" uid="uid://bt31p71ecqo8s" path="res://sprites/players/warrior.png" id="5_lvj7c"]
 [ext_resource type="Script" path="res://entities/player/PlayerClassHolder.cs" id="7_0apcj"]
 [ext_resource type="Resource" uid="uid://cvw68vy16pi6j" path="res://entities/player/settings/warrior.tres" id="8_ctlri"]
 [ext_resource type="Resource" uid="uid://cqjq4bkbogrrm" path="res://entities/player/settings/mage.tres" id="9_wok3u"]
+[ext_resource type="Resource" uid="uid://11klep1nqigu" path="res://entities/player/settings/rogue.tres" id="10_m54y0"]
+[ext_resource type="Resource" uid="uid://c6egs1m7g1x4j" path="res://entities/player/settings/huntress.tres" id="11_8oina"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_elw7i"]
 radius = 4.0
@@ -238,12 +240,9 @@ script = ExtResource("1_dlikn")
 shape = SubResource("CapsuleShape2D_elw7i")
 
 [node name="ProjectileLauncher" type="Node2D" parent="."]
-position = Vector2(8, 0)
+position = Vector2(0, 1)
 script = ExtResource("2_3ldon")
 Projectile = ExtResource("3_udb8n")
-Range = 150.0
-ProjectileSpeed = 130.0
-LaunchDelay = 0.4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
@@ -265,4 +264,4 @@ script = ExtResource("5_23pb1")
 
 [node name="PlayerClassHolder" type="Node2D" parent="."]
 script = ExtResource("7_0apcj")
-PlayerClassList = Array[Resource]([ExtResource("8_ctlri"), ExtResource("9_wok3u")])
+PlayerClassList = Array[Resource]([ExtResource("8_ctlri"), ExtResource("9_wok3u"), ExtResource("10_m54y0"), ExtResource("11_8oina")])

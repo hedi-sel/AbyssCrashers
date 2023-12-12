@@ -12,6 +12,11 @@ public partial class PlayerClass : Resource
     }
 
     [Export] public Id ClassId = Id.Warrior;
+
     [Export] public SpriteFrames Frames;
+
+    [Export] public PackedScene BaseProjectile;
+
+    [Export] public int RunSpeed = 120;
 
 }

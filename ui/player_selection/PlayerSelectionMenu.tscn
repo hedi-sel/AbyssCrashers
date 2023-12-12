@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=3 uid="uid://dbsx03l0c4svd"]
+
+[ext_resource type="Texture2D" uid="uid://du8b2tgf7ytj6" path="res://assets/splashes/warrior.jpg" id="1_2ywke"]
+[ext_resource type="Texture2D" uid="uid://bcqkg20y2wulp" path="res://assets/splashes/mage.jpg" id="2_fmurp"]
+[ext_resource type="Script" path="res://ui/player_selection/SplashHolder.cs" id="2_yb1a2"]
+[ext_resource type="Texture2D" uid="uid://b7cn6jjrrojpw" path="res://assets/splashes/rogue.jpg" id="3_fdda3"]
+[ext_resource type="Texture2D" uid="uid://64cufyavmdd5" path="res://assets/splashes/huntress.jpg" id="4_6fi5l"]
+[ext_resource type="PackedScene" uid="uid://11sejs1bpmlg" path="res://ui/player_selection/SelectionChoice.tscn" id="6_mfqfe"]
+[ext_resource type="Texture2D" uid="uid://durtg7m63mygs" path="res://sprites/players/mage.png" id="7_1mmol"]
+[ext_resource type="Texture2D" uid="uid://cntsra5q366p" path="res://sprites/players/rogue.png" id="7_b8p1e"]
+[ext_resource type="Texture2D" uid="uid://c4wxv02k8ig2n" path="res://sprites/players/huntress.png" id="9_18qsq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ndg2"]
+atlas = ExtResource("7_1mmol")
+region = Rect2(240, 90, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lluv7"]
+atlas = ExtResource("7_b8p1e")
+region = Rect2(12, 90, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cy02"]
+atlas = ExtResource("9_18qsq")
+region = Rect2(0, 90, 12, 15)
+
+[node name="PlayerSelectionMenu" type="CanvasLayer"]
+process_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2ywke")
+script = ExtResource("2_yb1a2")
+Warrior = ExtResource("1_2ywke")
+Mage = ExtResource("2_fmurp")
+Rogue = ExtResource("3_fdda3")
+Huntress = ExtResource("4_6fi5l")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_6fi5l")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Warrior" parent="GridContainer" instance=ExtResource("6_mfqfe")]
+layout_mode = 2
+
+[node name="Mage" parent="GridContainer" instance=ExtResource("6_mfqfe")]
+layout_mode = 2
+
+[node name="PlayerSelect" parent="GridContainer/Mage" index="0"]
+ClassId = 1
+
+[node name="TextureRect" parent="GridContainer/Mage/PlayerSelect/VBoxContainer" index="0"]
+texture = SubResource("AtlasTexture_1ndg2")
+
+[node name="Label" parent="GridContainer/Mage/PlayerSelect/VBoxContainer" index="1"]
+text = "The mage uses tactical positiong to wreck havoc in the right conditions"
+
+[node name="Rogue" parent="GridContainer" instance=ExtResource("6_mfqfe")]
+layout_mode = 2
+
+[node name="PlayerSelect" parent="GridContainer/Rogue" index="0"]
+ClassId = 2
+
+[node name="TextureRect" parent="GridContainer/Rogue/PlayerSelect/VBoxContainer" index="0"]
+texture = SubResource("AtlasTexture_lluv7")
+
+[node name="Label" parent="GridContainer/Rogue/PlayerSelect/VBoxContainer" index="1"]
+text = "High risk high reward, the rogue will deal massive damage at close range"
+
+[node name="Huntress" parent="GridContainer" instance=ExtResource("6_mfqfe")]
+layout_mode = 2
+
+[node name="PlayerSelect" parent="GridContainer/Huntress" index="0"]
+ClassId = 3
+
+[node name="TextureRect" parent="GridContainer/Huntress/PlayerSelect/VBoxContainer" index="0"]
+texture = SubResource("AtlasTexture_7cy02")
+
+[node name="Label" parent="GridContainer/Huntress/PlayerSelect/VBoxContainer" index="1"]
+text = "The huntress uses the environment to safely kill her prey from a distance"
+
+[editable path="GridContainer/Mage"]
+[editable path="GridContainer/Rogue"]
+[editable path="GridContainer/Huntress"]

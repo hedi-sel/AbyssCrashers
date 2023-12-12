@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/MainScene.cs" id="1_3wgf6"]
 [ext_resource type="PackedScene" uid="uid://b68dgp3ncejf0" path="res://ui/MultiplayerMenu.tscn" id="1_nq01g"]
 [ext_resource type="PackedScene" uid="uid://b0774ll1s6f7b" path="res://world.tscn" id="2_xlsv8"]
-[ext_resource type="PackedScene" uid="uid://dbsx03l0c4svd" path="res://ui/PlayerSelectionMenu.tscn" id="3_oiqcn"]
+[ext_resource type="PackedScene" uid="uid://dbsx03l0c4svd" path="res://ui/player_selection/PlayerSelectionMenu.tscn" id="3_oiqcn"]
 
 [node name="MainScene" type="Node2D"]
 y_sort_enabled = true

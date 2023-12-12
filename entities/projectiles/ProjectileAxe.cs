@@ -4,9 +4,13 @@ using AbyssCrashers.objects;
 
 public partial class ProjectileAxe : Projectile
 {
+    private AnimationPlayer AnimationPlayer;
+
     public override void _Ready()
     {
         base._Ready();
+        AnimationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        AnimationPlayer.Play("projectile");
 
         if (Math.Abs(Velocity.X) > Math.Abs(Velocity.Y))
         {

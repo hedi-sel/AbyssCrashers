@@ -4,7 +4,6 @@ using Godot;
 public partial class PlayerControl : CharacterBody2D, IEntityControl
 {
     [Export] public int Id;
-    [Export] public float Speed = 100.0f;
     [Export] public PlayerClass.Id PlayerClass;
 
     private PlayerInput _playerInput;
@@ -13,6 +12,7 @@ public partial class PlayerControl : CharacterBody2D, IEntityControl
     private AnimatedSprite2D _animationSprite;
 
     public EntityType Type => EntityType.Player;
+    public int RunSpeed = 120;
 
     public override void _EnterTree()
     {
@@ -38,14 +38,7 @@ public partial class PlayerControl : CharacterBody2D, IEntityControl
     public void LoadPlayerClass(PlayerClass.Id playerClassId)
     {
         PlayerClass = playerClassId;
-        LoadPlayerClass();
-    }
-
-    public void LoadPlayerClass()
-    {
-        var animPlayer = GetNode<AnimatedSprite2D>(nameof(AnimatedSprite2D));
-        var playerClass = GetNode<PlayerClassHolder>(nameof(PlayerClassHolder)).Get(PlayerClass);
-        animPlayer.SpriteFrames = playerClass.Frames;
+        this.LoadPlayerClass();
     }
 
     public void TakeDamage(Vector2 origin, float damage)
@@ -59,14 +52,14 @@ public partial class PlayerControl : CharacterBody2D, IEntityControl
         var direction = _playerInput.Movement;
         if (direction != Vector2.Zero)
         {
-            Velocity = direction * Speed;
+            Velocity = direction * RunSpeed;
             if (Math.Abs(Velocity.X) > 0.2)
                 facingRight = Velocity.X > 0;
             _animationPlayer.PlayIfNeeded("run");
         }
         else
         {
-            Velocity = Velocity.MoveToward(Vector2.Zero, Speed);
+            Velocity = Velocity.MoveToward(Vector2.Zero, RunSpeed);
             _animationPlayer.PlayIfNeeded("idle");
         }
 

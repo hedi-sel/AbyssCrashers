@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0774ll1s6f7b"]
+[gd_scene load_steps=9 format=3 uid="uid://b0774ll1s6f7b"]
 
 [ext_resource type="Script" path="res://world/scripts/EntityLayer.cs" id="1_3gkwa"]
 [ext_resource type="Script" path="res://world/scripts/ProjectileLayer.cs" id="2_d6fqk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://world/scripts/spawnage/MonsterSpawner.cs" id="6_fwurc"]
 [ext_resource type="Script" path="res://world/scripts/spawnage/FolderSpawner.cs" id="7_5nb6a"]
 [ext_resource type="PackedScene" uid="uid://c2245uuqo7knp" path="res://world/rooms/sewers1.tscn" id="7_ml3v7"]
+[ext_resource type="AudioStream" uid="uid://bha3urf2e7gkt" path="res://assets/music/sewers_2.ogg" id="8_tkph4"]
 
 [node name="World" type="Node2D"]
 scale = Vector2(4, 4)
@@ -43,4 +44,8 @@ Folder = "res://entities/monsters"
 [node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../ProjectileLayer")
 script = ExtResource("7_5nb6a")
-Folder = "res://entities/projectiles"
+Folder = "res://entities/projectiles/prefabs"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_tkph4")
+autoplay = true

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" load_steps=20 format=3 uid="uid://cqjq4bkbogrrm"]
+[gd_resource type="Resource" load_steps=21 format=3 uid="uid://cqjq4bkbogrrm"]
 
+[ext_resource type="PackedScene" uid="uid://ik5dqq0gyxd8" path="res://entities/projectiles/prefabs/magic_missile.tscn" id="1_dfeo6"]
 [ext_resource type="Texture2D" uid="uid://durtg7m63mygs" path="res://sprites/players/mage.png" id="1_ej048"]
 [ext_resource type="Script" path="res://entities/player/settings/PlayerClass.cs" id="2_wgjah"]
 
@@ -127,3 +128,4 @@ animations = [{
 script = ExtResource("2_wgjah")
 ClassId = 1
 Frames = SubResource("SpriteFrames_xe4uj")
+BaseProjectile = ExtResource("1_dfeo6")

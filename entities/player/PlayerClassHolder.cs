@@ -16,3 +16,19 @@ public partial class PlayerClassHolder : Node2D
         return _playerClassDict![id];
     }
 }
+
+public static class PlayerClassLoader
+{
+    public static void LoadPlayerClass(this PlayerControl player)
+    {
+        var playerClassData = player.GetNode<PlayerClassHolder>(nameof(PlayerClassHolder)).Get(player.PlayerClass);
+
+        var animPlayer = player.GetNode<AnimatedSprite2D>(nameof(AnimatedSprite2D));
+        animPlayer.SpriteFrames = playerClassData.Frames;
+
+        var projectileLauncher = player.GetNode<ProjectileLauncher>(nameof(ProjectileLauncher));
+        projectileLauncher.Projectile = playerClassData.BaseProjectile;
+
+        player.RunSpeed = playerClassData.RunSpeed;
+    }
+}

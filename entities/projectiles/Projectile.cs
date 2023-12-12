@@ -5,34 +5,30 @@ namespace AbyssCrashers.objects;
 
 public partial class Projectile : Area2D
 {
-    [Export] public Vector2 Velocity { get; private set; }
-    [Export] public float Range { get; private set; }
+    [Export] public float Range = 100;
+    [Export] public float Speed { get; protected set; } = 130;
+    [Export] public float Cooldown { get; set; } = 0.4f;
 
-    public float TraversedRange { get; private set; }
+    protected float TraversedRange { get; private set; }
+
+    protected Vector2 Velocity { get; private set; }
 
     private float _velocityLength;
 
-    protected AnimationPlayer AnimationPlayer { get; private set; }
-
-    public void Initialize(Vector2 velocity, float range)
+    public void Initialize(Vector2 direction)
     {
-        Velocity = velocity;
+        Velocity = direction * Speed;
         _velocityLength = Velocity.Length();
-        Range = range;
         TraversedRange = 0;
     }
 
     public override void _Ready()
     {
         base._Ready();
-        AnimationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-        AnimationPlayer?.Play("projectile");
         if (!IsMultiplayerAuthority())
             SetProcess(false);
         else
             BodyEntered += OnBodyEntered;
-
-
     }
 
     private void OnBodyEntered(Node2D body)
@@ -47,7 +43,7 @@ public partial class Projectile : Area2D
         Destroy();
     }
 
-    private void Destroy()
+    protected virtual void Destroy()
     {
         QueueFree();
     }
