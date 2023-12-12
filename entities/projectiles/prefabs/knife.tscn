@@ -28,6 +28,7 @@ script = ExtResource("1_g1t8b")
 Range = 70.0
 Speed = 180.0
 Cooldown = 0.2
+KnockbackMultiplier = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2, 0)

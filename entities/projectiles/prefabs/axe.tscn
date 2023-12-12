@@ -44,10 +44,12 @@ properties/2/spawn = true
 properties/2/replication_mode = 2
 
 [node name="Axe" type="Area2D"]
+position = Vector2(0, -1)
 rotation = -0.628318
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_klpdu")
+KnockbackMultiplier = 1.5
 
 [node name="FireTile" type="Sprite2D" parent="."]
 position = Vector2(5, 0)

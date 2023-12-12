@@ -9,6 +9,9 @@ public partial class Projectile : Area2D
     [Export] public float Speed { get; protected set; } = 130;
     [Export] public float Cooldown { get; set; } = 0.4f;
 
+    [Export] public float Damage { get; set; } = 1;
+    [Export] public float KnockbackMultiplier { get; set; } = 1;
+
     protected float TraversedRange { get; private set; }
 
     protected Vector2 Velocity { get; private set; }
@@ -39,7 +42,9 @@ public partial class Projectile : Area2D
             return;
         }
 
-        entity.TakeDamage(this.GlobalPosition, 1);
+        var knockback = (body.GlobalPosition - this.GlobalPosition).Normalized();
+        knockback += Velocity.Normalized();
+        entity.TakeDamage(knockback * KnockbackMultiplier, Damage);
         Destroy();
     }
 

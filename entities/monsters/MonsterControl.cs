@@ -9,7 +9,7 @@ public partial class MonsterControl : CharacterBody2D, IEntityControl
     [Export] public float Hp = 1;
     [Export] public float Speed = 40;
 
-    protected AnimationPlayer AnimationPlayer;
+    protected AdvancedAnimationPlayer AnimationPlayer;
     protected EntityLayer EntityLayer;
     protected float HpLeft;
 
@@ -18,7 +18,7 @@ public partial class MonsterControl : CharacterBody2D, IEntityControl
     {
         base._Ready();
 
-        AnimationPlayer = GetNode<AnimationPlayer>(nameof(AnimationPlayer));
+        AnimationPlayer = GetNode<AdvancedAnimationPlayer>(nameof(AnimationPlayer));
         EntityLayer = GetParent<EntityLayer>();
 
         if (Multiplayer.GetUniqueId() != 1)
@@ -36,19 +36,24 @@ public partial class MonsterControl : CharacterBody2D, IEntityControl
 
     private void Destroy()
     {
-        var time = new Timer
-        {
-            Autostart = true,
-            WaitTime = 0.5,
-        };
-        AddChild(time);
-        time.Timeout += QueueFree;
+        SetPhysicsProcess(false);
+        GetNode<CollisionShape2D>(nameof(CollisionShape2D)).SetDeferred(
+            nameof(CollisionShape2D.Disabled).ToLower(), true);
+        AnimationPlayer.PlayEvent("die", false);
+        AnimationPlayer.AnimationFinished += _ => FadeOut();
     }
 
-    public void TakeDamage(Vector2 origin, float damage)
+    private void FadeOut()
     {
-        var impulse = (GlobalPosition - origin).Normalized();
-        Velocity = impulse * 1000;
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(this, nameof(Modulate).ToLower(), Colors.Transparent, 1.2)
+            .SetTrans(Tween.TransitionType.Quad);
+        tween.Finished += QueueFree;
+    }
+
+    public void TakeDamage(Vector2 knockback, float damage)
+    {
+        Velocity = knockback * 500;
 
         HpLeft -= damage;
         if (HpLeft <= 0) Destroy();

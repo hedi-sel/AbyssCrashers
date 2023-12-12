@@ -8,11 +8,18 @@ public partial class AdvancedAnimationPlayer : AnimationPlayer
     private string _savedAnimation;
     private double _savedPosition;
 
-    public override void _EnterTree()
+    public void PlayIfNeeded(string name, bool backwards = false)
     {
-        base._EnterTree();
-        AnimationFinished += OnAnimationFinished;
+        PlayIfNeeded_Internal(name, backwards);
+        Rpc(nameof(PlayIfNeeded_Internal), name, backwards);
     }
+
+    public void PlayEvent(string name, bool continueCurrentAnimation = true)
+    {
+        PlayEvent_Internal(name, continueCurrentAnimation);
+        Rpc(nameof(PlayEvent_Internal), name, continueCurrentAnimation);
+    }
+
 
     public void AdvanceRpc(double delta)
     {
@@ -20,17 +27,7 @@ public partial class AdvancedAnimationPlayer : AnimationPlayer
         Rpc(nameof(Advance), delta);
     }
 
-    public void PlayIfNeeded(string name, bool backwards = false)
-    {
-        PlayIfNeeded_Internal(name, backwards);
-        Rpc(nameof(PlayIfNeeded_Internal), name, backwards);
-    }
-
-    public void PlayEvent(string name)
-    {
-        PlayEvent_Internal(name);
-        Rpc(nameof(PlayEvent_Internal), name);
-    }
+    //Private
 
     [Rpc]
     private void PlayIfNeeded_Internal(string name, bool backwards = false)
@@ -43,17 +40,27 @@ public partial class AdvancedAnimationPlayer : AnimationPlayer
     }
 
     [Rpc]
-    public void PlayEvent_Internal(string name)
+    private void PlayEvent_Internal(string name, bool continueCurrentAnimation)
     {
-        if (_playingEvent == null)
+        if (continueCurrentAnimation && !string.IsNullOrEmpty(CurrentAnimation))
         {
             _savedAnimation = CurrentAnimation;
             _savedPosition = CurrentAnimationPosition;
         }
 
+        if (!continueCurrentAnimation)
+            _savedAnimation = null;
+
         _playingEvent = name;
         Play(name);
     }
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        AnimationFinished += OnAnimationFinished;
+    }
+
 
     private void OnAnimationFinished(StringName name)
     {
@@ -66,7 +73,5 @@ public partial class AdvancedAnimationPlayer : AnimationPlayer
             _savedAnimation = null;
             _savedPosition = 0;
         }
-        else
-            Play("idle");
     }
 }

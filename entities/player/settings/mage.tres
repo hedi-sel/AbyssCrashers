@@ -129,3 +129,4 @@ script = ExtResource("2_wgjah")
 ClassId = 1
 Frames = SubResource("SpriteFrames_xe4uj")
 BaseProjectile = ExtResource("1_dfeo6")
+RunSpeed = 120

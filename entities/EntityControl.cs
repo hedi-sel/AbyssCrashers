@@ -12,7 +12,7 @@ public interface IEntityControl
         return (T)thisNode.GetChildren().First(node => node is T);
     }
 
-    public void TakeDamage(Vector2 origin, float damage);
+    public void TakeDamage(Vector2 knockback, float damage);
 }
 
 public enum EntityType
