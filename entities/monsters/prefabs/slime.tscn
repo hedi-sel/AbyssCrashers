@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://bcvskelt87rp2"]
+[gd_scene load_steps=20 format=3 uid="uid://bcvskelt87rp2"]
 
-[ext_resource type="Script" path="res://entities/monsters/FollowerControl.cs" id="1_qe41g"]
+[ext_resource type="Script" path="res://entities/monsters/FollowerJumperControl.cs" id="1_8wuky"]
 [ext_resource type="Texture2D" uid="uid://c6qec0f66bchw" path="res://sprites/monsters/slime.png" id="2_k663g"]
 [ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="3_ln7ex"]
 
@@ -120,10 +120,14 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 3, 2]
 }
 
+[sub_resource type="Animation" id="Animation_vygbo"]
+resource_name = "prepare"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_70e3i"]
 _data = {
 "RESET": SubResource("Animation_pg57k"),
 "die": SubResource("Animation_farcb"),
+"prepare": SubResource("Animation_vygbo"),
 "run": SubResource("Animation_g0ox0")
 }
 
@@ -142,9 +146,7 @@ properties/2/replication_mode = 1
 scale = Vector2(-1, 1)
 collision_layer = 2
 collision_mask = 15
-script = ExtResource("1_qe41g")
-Hp = 3.0
-Speed = 20.0
+script = ExtResource("1_8wuky")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=21 format=3 uid="uid://c6egs1m7g1x4j"]
 
-[ext_resource type="PackedScene" uid="uid://cpnpk6fwblmn5" path="res://entities/projectiles/prefabs/arrow.tscn" id="1_qs3bi"]
+[ext_resource type="PackedScene" uid="uid://cpnpk6fwblmn5" path="res://entities/projectiles/prefabs/p_arrow.tscn" id="1_qs3bi"]
 [ext_resource type="Texture2D" uid="uid://c4wxv02k8ig2n" path="res://sprites/players/huntress.png" id="2_biv1x"]
 [ext_resource type="Script" path="res://entities/player/settings/PlayerClass.cs" id="3_w0vde"]
 

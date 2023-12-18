@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://world/scripts/spawnage/SummonStation.cs" id="1_4nyoc"]
 
 [node name="SummonStation" type="Node2D" node_paths=PackedStringArray("_p2", "_p3", "_p4")]
-position = Vector2(85.5, 34)
 script = ExtResource("1_4nyoc")
 _p2 = NodePath("P2")
 _p3 = NodePath("P3")

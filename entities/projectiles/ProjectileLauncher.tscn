@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://jnfop36r87no"]
 
 [ext_resource type="Script" path="res://entities/projectiles/ProjectileLauncher.cs" id="1_aifv0"]
-[ext_resource type="PackedScene" uid="uid://gohtktycdvh6" path="res://entities/projectiles/prefabs/axe.tscn" id="2_2epo1"]
+[ext_resource type="PackedScene" uid="uid://gohtktycdvh6" path="res://entities/projectiles/prefabs/p_axe.tscn" id="2_2epo1"]
 
 [node name="ProjectileLauncher" type="Node2D"]
 script = ExtResource("1_aifv0")

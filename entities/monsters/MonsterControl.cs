@@ -4,12 +4,11 @@ using System.Linq;
 
 public partial class MonsterControl : EntityControl
 {
-    [Export] public float Hp = 1;
     [Export] public float Speed = 40;
+    [Export] public float BumpDamage = 0.5f;
 
     protected AdvancedAnimationPlayer AnimationPlayer;
     protected EntityLayer EntityLayer;
-    protected float HpLeft;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -25,14 +24,26 @@ public partial class MonsterControl : EntityControl
             SetProcess(false);
             return;
         }
-
-        HpLeft = Hp;
     }
 
     protected PlayerControl GetClosestPlayer()
         => EntityLayer.Players.MinBy(p => p.Position.DistanceSquaredTo(Position));
 
-    private void Destroy()
+    protected override void Flicker()
+    {
+        var tween = CreateTween();
+        const float time = 0.06f;
+        const int count = 3;
+        for (int i = 0; i < count; i++)
+        {
+            tween.TweenProperty(this, "modulate:a", 0, time);
+            tween.TweenProperty(this, "modulate:a", 1, time);
+        }
+
+        tween.Play();
+    }
+
+    protected override void Die()
     {
         SetPhysicsProcess(false);
         GetNode<CollisionShape2D>(nameof(CollisionShape2D)).SetDeferred(
@@ -51,9 +62,7 @@ public partial class MonsterControl : EntityControl
 
     public override void TakeDamage(Vector2 knockback, float damage)
     {
+        base.TakeDamage(knockback, damage);
         Velocity = knockback * 500;
-
-        HpLeft -= damage;
-        if (HpLeft <= 0) Destroy();
     }
 }

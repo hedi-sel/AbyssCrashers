@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpnpk6fwblmn5"]
+[gd_scene load_steps=6 format=3 uid="uid://dm1jct8w3bhpy"]
 
-[ext_resource type="Script" path="res://entities/projectiles/OrientedProjectile.cs" id="1_q0fsq"]
-[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_cvmxm"]
+[ext_resource type="Script" path="res://entities/projectiles/OrientedProjectile.cs" id="1_ahnwn"]
+[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_yeccd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5a648"]
-atlas = ExtResource("2_cvmxm")
-region = Rect2(96, 16, 16, 16)
+atlas = ExtResource("2_yeccd")
+region = Rect2(64, 144, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76jji"]
 size = Vector2(5, 12.75)
@@ -23,20 +23,19 @@ properties/2/replication_mode = 2
 
 [node name="Arrow" type="Area2D"]
 collision_layer = 0
-collision_mask = 2
-script = ExtResource("1_q0fsq")
+script = ExtResource("1_ahnwn")
 Range = 200.0
 Speed = 150.0
 Cooldown = 0.5
 KnockbackMultiplier = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(3, 0)
+position = Vector2(4, 0)
 rotation = -0.785398
 texture = SubResource("AtlasTexture_5a648")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -1.625)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_76jji")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

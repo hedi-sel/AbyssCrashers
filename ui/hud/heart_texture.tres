@@ -1,0 +1,7 @@
+[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://dvikvy4j3rfo8"]
+
+[ext_resource type="Texture2D" uid="uid://dcbt8qn5sx4s4" path="res://sprites/heart.png" id="1_2ryh0"]
+
+[resource]
+diffuse_texture = ExtResource("1_2ryh0")
+texture_repeat = 2

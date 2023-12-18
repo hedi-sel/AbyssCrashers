@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3drplf1nkpra"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_iteo3"]
+script/source = "using Godot;
+using System;
+using AbyssCrashers.world.scripts.helpers;
+
+public partial class DoorTransition : Node2D
+{
+    public enum Direction
+    {
+        Horizontal,
+        Vertical,
+    }
+
+    [Export] public Area2D LeftUp;
+    [Export] public Area2D RightBottom;
+
+    [Export] public Direction Type;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        LeftUp.BodyEntered += body => EnterBody(ToPlayer(body), false);
+        LeftUp.BodyExited += body => ExitBody(ToPlayer(body), false);
+
+        RightBottom.BodyEntered += body => EnterBody(ToPlayer(body), true);
+        RightBottom.BodyExited += body => ExitBody(ToPlayer(body), true);
+    }
+
+
+    private static PlayerControl ToPlayer(Node2D body) =>
+        body as PlayerControl ?? throw new Exception(\"Non player body entered door\");
+
+    
+    private readonly bool[] _isInside = { false, false };
+    private bool _cameraOnRightBottom;
+
+    private void EnterBody(PlayerControl player, bool isRightBottom)
+    {
+        if (player.PlayerOwner != Multiplayer.GetUniqueId()) return;
+
+        var current = isRightBottom ? 1 : 0;
+        var other = isRightBottom ? 0 : 1;
+        _isInside[current] = true;
+
+        if (_isInside[other])
+        {
+            MoveCamera(isRightBottom);
+            _cameraOnRightBottom = isRightBottom;
+        }
+        else
+            _cameraOnRightBottom = isRightBottom;
+    }
+
+    private void ExitBody(PlayerControl player, bool isRightBottom)
+    {
+        if (player.PlayerOwner != Multiplayer.GetUniqueId()) return;
+
+        var current = isRightBottom ? 1 : 0;
+        var other = isRightBottom ? 0 : 1;
+        _isInside[current] = false;
+
+        if (_isInside[other] && _cameraOnRightBottom == isRightBottom)
+        {
+            MoveCamera(!isRightBottom);
+            _cameraOnRightBottom = !isRightBottom;
+        }
+    }
+
+    private void MoveCamera(bool towardsRightBottom)
+    {
+        var dir = Type == Direction.Horizontal
+            ? (towardsRightBottom ? CardinalDirection.Right : CardinalDirection.Left)
+            : (towardsRightBottom ? CardinalDirection.Down : CardinalDirection.Up);
+        InstanceHolder.Get<CameraMovement>().MoveToNextRoom(dir);
+    }
+}"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugy88"]
+size = Vector2(8, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7brr"]
+size = Vector2(8, 120)
+
+[node name="DoorTransitionHorizontal" type="Node2D" node_paths=PackedStringArray("LeftUp", "RightBottom")]
+position = Vector2(0, 96)
+script = SubResource("CSharpScript_iteo3")
+LeftUp = NodePath("Area2D")
+RightBottom = NodePath("Area2D2")
+Type = null
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4, 6)
+shape = SubResource("RectangleShape2D_ugy88")
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(7.75, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(4, 6.125)
+shape = SubResource("RectangleShape2D_i7brr")

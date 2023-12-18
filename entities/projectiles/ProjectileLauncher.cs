@@ -35,7 +35,7 @@ public partial class ProjectileLauncher : Node2D
         projectileScene.Initialize(direction);
         projectileScene.Name = "Projectile_" + _random.Next();
 
-        Instance.Get<ProjectileLayer>().AddChild(projectileScene);
+        InstanceHolder.Get<ProjectileLayer>().AddChild(projectileScene);
         projectileScene.GlobalPosition = GlobalPosition;
 
         _delay.WaitTime = projectileScene.Cooldown;

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://24plqpt723ry"]
 
-[ext_resource type="Script" path="res://entities/projectiles/OrientedProjectile.cs" id="1_g1t8b"]
-[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_7h5w3"]
+[ext_resource type="Script" path="res://entities/projectiles/OrientedProjectile.cs" id="1_dhnvd"]
+[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_sartx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5a648"]
-atlas = ExtResource("2_7h5w3")
+atlas = ExtResource("2_sartx")
 region = Rect2(32, 144, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76jji"]
@@ -24,10 +24,11 @@ properties/2/replication_mode = 2
 [node name="Knife" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_g1t8b")
+script = ExtResource("1_dhnvd")
 Range = 70.0
 Speed = 180.0
 Cooldown = 0.2
+Damage = 0.6
 KnockbackMultiplier = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

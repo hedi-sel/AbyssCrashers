@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7wstouuos1wf"]
+
+[ext_resource type="PackedScene" uid="uid://dpfelwfyvxxws" path="res://ui/hud/health_bar.tscn" id="1_kpj4v"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+custom_minimum_size = Vector2(0, 73)
+layout_mode = 1
+offset_bottom = 73.0
+color = Color(0.113725, 0.113725, 0.113725, 0.317647)
+
+[node name="HealthBar" parent="Control/ColorRect" instance=ExtResource("1_kpj4v")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1

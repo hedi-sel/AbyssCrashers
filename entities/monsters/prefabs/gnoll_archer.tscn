@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://j8s8lbuby6k" path="res://sprites/monsters/gnoll.png" id="2_r723n"]
 [ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="3_yqdty"]
 [ext_resource type="PackedScene" uid="uid://jnfop36r87no" path="res://entities/projectiles/ProjectileLauncher.tscn" id="4_gvcnk"]
-[ext_resource type="PackedScene" uid="uid://dm1jct8w3bhpy" path="res://entities/projectiles/prefabs/arrow_gnoll.tscn" id="5_8sj3f"]
+[ext_resource type="PackedScene" uid="uid://dm1jct8w3bhpy" path="res://entities/projectiles/prefabs/gnoll_arrow.tscn" id="5_8sj3f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5add6"]
 atlas = ExtResource("2_r723n")

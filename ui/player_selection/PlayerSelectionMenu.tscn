@@ -24,6 +24,7 @@ region = Rect2(0, 90, 12, 15)
 
 [node name="PlayerSelectionMenu" type="CanvasLayer"]
 process_mode = 3
+layer = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15

@@ -201,7 +201,6 @@ properties/2/replication_mode = 1
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_rvoog")
-Hp = 3.0
 Speed = 100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

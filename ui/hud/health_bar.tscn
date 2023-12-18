@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpfelwfyvxxws"]
+
+[ext_resource type="Script" path="res://ui/hud/HealthBar.cs" id="1_1s00w"]
+[ext_resource type="Texture2D" uid="uid://dvikvy4j3rfo8" path="res://ui/hud/heart_texture.tres" id="1_4gk1b"]
+
+[node name="HealthBar" type="Control" node_paths=PackedStringArray("CurrentHealth", "MaxHealth")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1s00w")
+CurrentHealth = NodePath("CurrentHealth")
+MaxHealth = NodePath("MaxHealth")
+
+[node name="MaxHealth" type="TextureRect" parent="."]
+self_modulate = Color(0, 0, 0, 0.533333)
+texture_repeat = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 15.0
+offset_right = 88.0
+offset_bottom = 26.0
+scale = Vector2(4, 4)
+texture = ExtResource("1_4gk1b")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="CurrentHealth" type="TextureRect" parent="."]
+texture_repeat = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 15.0
+offset_right = 36.0
+offset_bottom = 26.0
+scale = Vector2(4, 4)
+texture = ExtResource("1_4gk1b")
+expand_mode = 1
+stretch_mode = 1

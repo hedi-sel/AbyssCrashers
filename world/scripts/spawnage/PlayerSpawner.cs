@@ -3,9 +3,9 @@ using System;
 using System.Linq;
 using Godot.Collections;
 
-public partial class PlayerSpawner : FolderSpawner
+public partial class PlayerSpawner : MultiplayerSpawner
 {
-    private PackedScene PlayerPackedScene => PackedScenes.First();
+    [Export] public PackedScene PlayerPackedScene;
     [Export] public SummonStation SummonStation;
 
 
@@ -53,7 +53,7 @@ public partial class PlayerSpawner : FolderSpawner
             player.Id = id;
             player.Name = id.ToString();
             _players.Add(id, player);
-            Instance.Get<EntityLayer>().AddChild(player);
+            InstanceHolder.Get<EntityLayer>().AddChild(player);
             player.GlobalPosition = SummonStation.GetPlayerPosition(_currentPlayers);
         }
     }

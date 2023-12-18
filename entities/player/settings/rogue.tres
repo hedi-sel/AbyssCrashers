@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=21 format=3 uid="uid://11klep1nqigu"]
 
-[ext_resource type="PackedScene" uid="uid://24plqpt723ry" path="res://entities/projectiles/prefabs/knife.tscn" id="1_siehp"]
+[ext_resource type="PackedScene" uid="uid://24plqpt723ry" path="res://entities/projectiles/prefabs/p_knife.tscn" id="1_siehp"]
 [ext_resource type="Texture2D" uid="uid://cntsra5q366p" path="res://sprites/players/rogue.png" id="2_8mqhc"]
 [ext_resource type="Script" path="res://entities/player/settings/PlayerClass.cs" id="3_6p2g2"]
 
@@ -129,3 +129,4 @@ script = ExtResource("3_6p2g2")
 ClassId = 2
 Frames = SubResource("SpriteFrames_7lasb")
 BaseProjectile = ExtResource("1_siehp")
+RunSpeed = 120

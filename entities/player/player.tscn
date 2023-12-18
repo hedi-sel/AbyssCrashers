@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/player/PlayerControl.cs" id="1_dlikn"]
 [ext_resource type="Script" path="res://entities/projectiles/ProjectileLauncher.cs" id="2_3ldon"]
-[ext_resource type="PackedScene" uid="uid://gohtktycdvh6" path="res://entities/projectiles/prefabs/axe.tscn" id="3_udb8n"]
+[ext_resource type="PackedScene" uid="uid://gohtktycdvh6" path="res://entities/projectiles/prefabs/p_axe.tscn" id="3_37qkq"]
 [ext_resource type="Script" path="res://entities/player/PlayerInput.cs" id="5_23pb1"]
 [ext_resource type="Script" path="res://entities/AdvancedAnimationPlayer.cs" id="5_fnwem"]
 [ext_resource type="Texture2D" uid="uid://bt31p71ecqo8s" path="res://sprites/players/warrior.png" id="5_lvj7c"]
@@ -234,11 +234,13 @@ properties/1/replication_mode = 1
 collision_mask = 15
 safe_margin = 0.5
 script = ExtResource("1_dlikn")
+RunSpeed = 300
+MaxHealth = 4.0
 
 [node name="ProjectileLauncher" type="Node2D" parent="."]
 position = Vector2(2, -2)
 script = ExtResource("2_3ldon")
-Projectile = ExtResource("3_udb8n")
+Projectile = ExtResource("3_37qkq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -3)

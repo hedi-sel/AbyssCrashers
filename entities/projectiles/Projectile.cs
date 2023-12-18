@@ -9,7 +9,7 @@ public partial class Projectile : Area2D
     [Export] public float Speed { get; protected set; } = 130;
     [Export] public float Cooldown { get; set; } = 0.4f;
 
-    [Export] public float Damage { get; set; } = 1;
+    [Export] public float Damage { get; set; } = 0.5f;
     [Export] public float KnockbackMultiplier { get; set; } = 1;
 
     protected float TraversedRange { get; private set; }

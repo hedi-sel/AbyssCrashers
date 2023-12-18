@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://gohtktycdvh6"]
 
-[ext_resource type="Script" path="res://entities/projectiles/ProjectileAxe.cs" id="1_klpdu"]
-[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_otdn2"]
+[ext_resource type="Script" path="res://entities/projectiles/ProjectileAxe.cs" id="1_b2fdn"]
+[ext_resource type="Texture2D" uid="uid://b3rvykw3f41mh" path="res://sprites/items.png" id="2_h3yi0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sq4ws"]
-atlas = ExtResource("2_otdn2")
+atlas = ExtResource("2_h3yi0")
 region = Rect2(144, 96, 16, 16)
 
 [sub_resource type="Animation" id="Animation_uq50p"]
@@ -48,7 +48,8 @@ position = Vector2(0, -1)
 rotation = -0.628318
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_klpdu")
+script = ExtResource("1_b2fdn")
+Damage = 1.0
 KnockbackMultiplier = 1.5
 
 [node name="FireTile" type="Sprite2D" parent="."]

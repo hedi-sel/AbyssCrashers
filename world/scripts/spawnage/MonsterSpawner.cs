@@ -10,16 +10,20 @@ public partial class MonsterSpawner : FolderSpawner
         base._Ready();
         if (!Multiplayer.IsServer()) return;
 
-        var rat = PackedScenes[1].Instantiate<MonsterControl>();
-        rat.Position = new Vector2(200, 100);
-        GetNode(SpawnPath).AddChild(rat);
+        var mon = PackedScenes[1].Instantiate<MonsterControl>();
+        mon.Position = new Vector2(-50, -50);
+        GetNode(SpawnPath).AddChild(mon);
 
-        var slime = PackedScenes[0].Instantiate<MonsterControl>();
-        slime.Position = new Vector2(200, 25);
-        GetNode(SpawnPath).AddChild(slime);
+        mon = PackedScenes[0].Instantiate<MonsterControl>();
+        mon.Position = new Vector2(-50, 25);
+        GetNode(SpawnPath).AddChild(mon);
 
-        var crab = PackedScenes[2].Instantiate<MonsterControl>();
-        crab.Position = new Vector2(32, 25);
-        GetNode(SpawnPath).AddChild(crab);
+        mon = PackedScenes[2].Instantiate<MonsterControl>();
+        mon.Position = new Vector2(50, 50);
+        GetNode(SpawnPath).AddChild(mon);
+
+        mon = PackedScenes[3].Instantiate<MonsterControl>();
+        mon.Position = new Vector2(80, -50);
+        GetNode(SpawnPath).AddChild(mon);
     }
 }
