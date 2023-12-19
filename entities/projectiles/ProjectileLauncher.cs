@@ -6,8 +6,6 @@ public partial class ProjectileLauncher : Node2D
 {
     [Export] public PackedScene Projectile;
 
-    private Random _random = new();
-
     private Timer _delay = new()
     {
         Autostart = false,
@@ -33,7 +31,7 @@ public partial class ProjectileLauncher : Node2D
         // Position = direction.Normalized() * Position.Length();
         var projectileScene = Projectile.Instantiate<Projectile>();
         projectileScene.Initialize(direction);
-        projectileScene.Name = "Projectile_" + _random.Next();
+        projectileScene.Name = "Projectile_" + RandomGenerator.GetInt();
 
         InstanceHolder.Get<ProjectileLayer>().AddChild(projectileScene);
         projectileScene.GlobalPosition = GlobalPosition;

@@ -19,9 +19,10 @@ public abstract partial class EntityControl : CharacterBody2D
         else if (value < 0) Flicker();
     }
 
-    public virtual void TakeDamage(Vector2 knockback, float damage)
+    public virtual bool TakeDamage(Vector2 knockback, float damage)
     {
         AddHealth(-damage);
+        return true;
     }
 
     protected abstract void Flicker();

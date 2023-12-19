@@ -3,7 +3,7 @@ using System;
 
 public partial class DiagonalStriderControl : MonsterControl
 {
-    Vector2 _currentDirection = new (1, 1);
+    Vector2 _currentDirection = new(RandomGenerator.GetSign(), RandomGenerator.GetSign());
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
@@ -17,5 +17,7 @@ public partial class DiagonalStriderControl : MonsterControl
         var collision = MoveAndCollide(Velocity * (float)delta);
         if (collision != null)
             _currentDirection = -_currentDirection.Reflect(collision.GetNormal());
+        if (collision?.GetCollider() is PlayerControl player)
+            Bump(player);
     }
 }

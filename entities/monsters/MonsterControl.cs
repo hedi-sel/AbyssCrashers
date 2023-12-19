@@ -6,6 +6,7 @@ public partial class MonsterControl : EntityControl
 {
     [Export] public float Speed = 40;
     [Export] public float BumpDamage = 0.5f;
+    [Export] public float BumpForce = 1f;
 
     protected AdvancedAnimationPlayer AnimationPlayer;
     protected EntityLayer EntityLayer;
@@ -43,6 +44,18 @@ public partial class MonsterControl : EntityControl
         tween.Play();
     }
 
+    protected void TriggerSlideCollisionBump()
+    {
+        for (var i = 0; i < GetSlideCollisionCount(); i++)
+            if (GetSlideCollision(i).GetCollider() is PlayerControl player)
+                Bump(player);
+    }
+
+    protected void Bump(PlayerControl player)
+    {
+        player.TakeDamage((player.Position - Position).Normalized() * BumpForce, BumpDamage);
+    }
+
     protected override void Die()
     {
         SetPhysicsProcess(false);
@@ -60,9 +73,10 @@ public partial class MonsterControl : EntityControl
         tween.Finished += QueueFree;
     }
 
-    public override void TakeDamage(Vector2 knockback, float damage)
+    public override bool TakeDamage(Vector2 knockback, float damage)
     {
         base.TakeDamage(knockback, damage);
         Velocity = knockback * 500;
+        return true;
     }
 }

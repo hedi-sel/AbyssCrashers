@@ -231,7 +231,7 @@ properties/1/spawn = false
 properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 15
+collision_mask = 13
 safe_margin = 0.5
 script = ExtResource("1_dlikn")
 RunSpeed = 300

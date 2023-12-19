@@ -25,8 +25,8 @@ properties/2/replication_mode = 2
 collision_layer = 0
 script = ExtResource("1_ahnwn")
 Range = 200.0
-Speed = 150.0
-Cooldown = 0.5
+Speed = 75.0
+Cooldown = 2.0
 KnockbackMultiplier = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -25,7 +25,9 @@ public partial class FollowerControl : MonsterControl
         FaceDirection(movement.X > 0);
 
         Velocity = Velocity.MoveToward(movement * Speed, 100);
-        MoveAndCollide(Velocity * (float)delta);
+        var collision = MoveAndCollide(Velocity * (float)delta);
+        if (collision?.GetCollider() is PlayerControl player)
+            Bump(player);
     }
 
     protected virtual bool CanMove() => true;

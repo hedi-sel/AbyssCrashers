@@ -5,29 +5,30 @@ public partial class FollowerJumperControl : FollowerControl
 {
     [Export] public float ViewRange = 25;
     [Export] public float PreparationTime = 0.8f;
-    [Export] public float JumpPower = 50;
     [Export] public float CooldownTime = 4;
+    [Export] public float JumpPower = 500;
+
 
     private float ViewRangeSquared => ViewRange * ViewRange;
 
-    private Timer _preparationTimer;
+
+    private State _currentState = State.Idle;
+    private Vector2 _jumpVelocity;
+
     private Timer _cooldownTimer;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         base._Ready();
-        _preparationTimer = new Timer
-        {
-            Autostart = false, OneShot = true, WaitTime = PreparationTime
-        };
-        _preparationTimer.Timeout += TriggerJump;
 
         _cooldownTimer = new Timer
         {
             Autostart = false, OneShot = true, WaitTime = CooldownTime
         };
         _cooldownTimer.Timeout += () => _currentState = State.Idle;
+
+        AddChild(_cooldownTimer);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,23 +41,36 @@ public partial class FollowerJumperControl : FollowerControl
                 if ((ClosestPlayer.Position - Position).LengthSquared() < ViewRangeSquared)
                 {
                     _currentState = State.PreparingJump;
-                    _preparationTimer.Start();
+                    _jumpVelocity = (ClosestPlayer.Position - Position).Normalized() * JumpPower;
+                    AnimationPlayer.PlayEvent("prepare");
                 }
 
                 break;
             case State.Jumping:
-                Velocity.MoveToward(Vector2.Zero, (float)delta);
                 MoveAndSlide();
+                TriggerSlideCollisionBump();
                 break;
         }
     }
 
-    private void TriggerJump()
+    public void TriggerJump()
     {
-        Velocity = (ClosestPlayer.Position - Position).Normalized() * JumpPower;
+        AnimationPlayer.PlayEvent("jump");
+
+        var tween = GetTree().CreateTween();
+        Velocity = _jumpVelocity;
+        tween.TweenProperty(this, "velocity", Vector2.Zero, AnimationPlayer.CurrentAnimationLength)
+            .SetEase(Tween.EaseType.In)
+            .SetTrans(Tween.TransitionType.Quad);
+        _currentState = State.Jumping;
     }
 
-    private State _currentState = State.Idle;
+    public void FinishJump()
+    {
+        _currentState = State.Cooldown;
+        _cooldownTimer.Start();
+    }
+
     protected override bool CanMove() => _currentState != State.PreparingJump && _currentState != State.Jumping;
 
     public enum State

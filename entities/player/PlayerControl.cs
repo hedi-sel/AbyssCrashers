@@ -7,6 +7,7 @@ public partial class PlayerControl : EntityControl
     [Export] public int Id;
     [Export] public PlayerClass.Id PlayerClass;
     [Export] public int RunSpeed = 120;
+    [Export] public float KnockbackMultiplier = 1f;
 
     private PlayerInput _playerInput;
     private AdvancedAnimationPlayer _animationPlayer;
@@ -25,12 +26,12 @@ public partial class PlayerControl : EntityControl
     public override void _Ready()
     {
         base._Ready();
-   
+
         _playerInput = GetNode<PlayerInput>(nameof(PlayerInput));
 
-        if(PlayerOwner != Multiplayer.GetUniqueId()) // Process enabled for the instance's player 
+        if (PlayerOwner != Multiplayer.GetUniqueId()) // Process enabled for the instance's player 
             SetProcess(false);
-        
+
         if (Multiplayer.GetUniqueId() != 1)
         {
             SetPhysicsProcess(false);
@@ -61,28 +62,52 @@ public partial class PlayerControl : EntityControl
         _healthBar.SetMaxHeartsFor(MaxHealth, PlayerOwner);
     }
 
-    public override void TakeDamage(Vector2 knockback, float damage)
+    public bool Invulnerable { get; private set; }
+
+    private Vector2 _knockbackVelocity = Vector2.Zero;
+
+    public override bool TakeDamage(Vector2 knockback, float damage)
     {
+        if (Invulnerable) return false;
         base.TakeDamage(knockback, damage);
-        Velocity = knockback * 300;
+        knockback *= KnockbackMultiplier;
+        var tween = GetTree().CreateTween();
+        tween.TweenMethod(Callable.From<Vector2>(v => _knockbackVelocity = v),
+                knockback.Normalized() * 400, Vector2.Zero, knockback.Length() * 0.1f)
+            .SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.In);
+        tween.Play();
+        return true;
     }
+
+    private const float FlickerTime = 1.2f;
 
     protected override void Flicker()
     {
+        Invulnerable = true;
         var tween = CreateTween();
-        const float time = 0.06f;
-        const int count = 3;
-        for (int i = 0; i < count; i++)
+        const int count = 10;
+        for (var i = 0; i < count; i++)
         {
-            tween.TweenProperty(this, "modulate:a", 0, time);
-            tween.TweenProperty(this, "modulate:a", 1, time);
+            tween.TweenProperty(this, "modulate:a", 0, FlickerTime / count / 2);
+            tween.TweenProperty(this, "modulate:a", 1, FlickerTime / count / 2);
         }
 
+        tween.TweenCallback(Callable.From(() => Invulnerable = false)).SetDelay(0.3f);
         tween.Play();
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        if (_knockbackVelocity != Vector2.Zero)
+        {
+            Velocity = _knockbackVelocity;
+            MoveAndSlide();
+            if (_knockbackVelocity.Y == 0 || Math.Abs(_knockbackVelocity.X / _knockbackVelocity.Y) > 0.5f)
+                FaceDirection(_knockbackVelocity.X < 0);
+            return;
+        }
+
         bool? facingRight = null;
         var direction = _playerInput.Movement;
         if (direction != Vector2.Zero)
@@ -129,6 +154,5 @@ public partial class PlayerControl : EntityControl
 
     protected override void Die()
     {
-        GD.Print("Im dead " + PlayerOwner);
     }
 }

@@ -35,6 +35,7 @@ public partial class ArcherControl : MonsterControl
 
             Velocity = Velocity.MoveToward(movement * Speed, 100);
             MoveAndSlide();
+            TriggerSlideCollisionBump();
 
             if (Math.Abs(alignement.Cross(idealMovement)) < 3f)
             {

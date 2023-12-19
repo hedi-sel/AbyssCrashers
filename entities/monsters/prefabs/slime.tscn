@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bcvskelt87rp2"]
+[gd_scene load_steps=21 format=3 uid="uid://bcvskelt87rp2"]
 
 [ext_resource type="Script" path="res://entities/monsters/FollowerJumperControl.cs" id="1_8wuky"]
 [ext_resource type="Texture2D" uid="uid://c6qec0f66bchw" path="res://sprites/monsters/slime.png" id="2_k663g"]
@@ -103,6 +103,66 @@ tracks/0/keys = {
 "values": [0, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_hm8n5"]
+resource_name = "jump"
+length = 0.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25, 0.35, 0.45, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 3, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"FinishJump"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_vygbo"]
+resource_name = "prepare"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 1, 0, 1, 2]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"TriggerJump"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_g0ox0"]
 resource_name = "run"
 length = 0.7
@@ -120,13 +180,11 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 3, 2]
 }
 
-[sub_resource type="Animation" id="Animation_vygbo"]
-resource_name = "prepare"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_70e3i"]
 _data = {
 "RESET": SubResource("Animation_pg57k"),
 "die": SubResource("Animation_farcb"),
+"jump": SubResource("Animation_hm8n5"),
 "prepare": SubResource("Animation_vygbo"),
 "run": SubResource("Animation_g0ox0")
 }
@@ -147,6 +205,9 @@ scale = Vector2(-1, 1)
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_8wuky")
+CooldownTime = 2.0
+Speed = 50.0
+BumpForce = 2.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
