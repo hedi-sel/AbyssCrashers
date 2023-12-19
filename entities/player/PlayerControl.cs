@@ -9,6 +9,8 @@ public partial class PlayerControl : EntityControl
     [Export] public int RunSpeed = 120;
     [Export] public float KnockbackMultiplier = 1f;
 
+    public static event Action<int, RoomId> PlayerMoveRoom;
+
     private PlayerInput _playerInput;
     private AdvancedAnimationPlayer _animationPlayer;
     private ProjectileLauncher _projectileLauncher;
@@ -28,9 +30,6 @@ public partial class PlayerControl : EntityControl
         base._Ready();
 
         _playerInput = GetNode<PlayerInput>(nameof(PlayerInput));
-
-        if (PlayerOwner != Multiplayer.GetUniqueId()) // Process enabled for the instance's player 
-            SetProcess(false);
 
         if (Multiplayer.GetUniqueId() != 1)
         {
@@ -69,36 +68,52 @@ public partial class PlayerControl : EntityControl
     public override bool TakeDamage(Vector2 knockback, float damage)
     {
         if (Invulnerable) return false;
+
         base.TakeDamage(knockback, damage);
         knockback *= KnockbackMultiplier;
+
         var tween = GetTree().CreateTween();
         tween.TweenMethod(Callable.From<Vector2>(v => _knockbackVelocity = v),
-                knockback.Normalized() * 400, Vector2.Zero, knockback.Length() * 0.1f)
+                knockback.Normalized() * 400, Vector2.Zero, knockback.Length() * 0.15f)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.In);
         tween.Play();
         return true;
     }
 
-    private const float FlickerTime = 1.2f;
+    private const float FlickerTime = 1f;
 
     protected override void Flicker()
     {
-        Invulnerable = true;
+        Rpc(nameof(Flicker_Internal), false);
+        Flicker_Internal(true);
+    }
+
+    [Rpc]
+    private void Flicker_Internal(bool isServer)
+    {
+        if (isServer) Invulnerable = true;
+
         var tween = CreateTween();
         const int count = 10;
+        const float dt = FlickerTime / count / 2;
         for (var i = 0; i < count; i++)
         {
-            tween.TweenProperty(this, "modulate:a", 0, FlickerTime / count / 2);
-            tween.TweenProperty(this, "modulate:a", 1, FlickerTime / count / 2);
+            tween.TweenProperty(this, "modulate:a", 0, dt);
+            tween.TweenProperty(this, "modulate:a", 1, dt);
         }
 
-        tween.TweenCallback(Callable.From(() => Invulnerable = false)).SetDelay(0.3f);
+        if (Multiplayer.IsServer())
+            tween.TweenCallback(Callable.From(() => Invulnerable = false)).SetDelay(0.3f);
         tween.Play();
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        var room = RoomId.FromPosition(Position);
+        if (room != CurrentRoom)
+            SetRoom(room);
+
         if (_knockbackVelocity != Vector2.Zero)
         {
             Velocity = _knockbackVelocity;
@@ -140,11 +155,20 @@ public partial class PlayerControl : EntityControl
         if (facingRight.HasValue) FaceDirection(facingRight.Value);
     }
 
-    public override void _Process(double delta)
+    private void SetRoom(RoomId room)
     {
-        base._Process(delta);
-        InstanceHolder.Get<CameraMovement>().FollowPlayerAt(GlobalPosition);
+        PlayerMoveRoom?.Invoke(PlayerOwner, room);
+
+        CurrentRoom = room;
+        if (PlayerOwner == Multiplayer.GetUniqueId())
+            SetCamera(room.X, room.Y);
+        else
+            RpcId(PlayerOwner, nameof(SetCamera), room.X, room.Y);
     }
+
+    [Rpc]
+    private void SetCamera(int x, int y)
+        => InstanceHolder.Get<CameraMovement>().MoveToRoom(new RoomId(x, y));
 
     public override void _ExitTree()
     {

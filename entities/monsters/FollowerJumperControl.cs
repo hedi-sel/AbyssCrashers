@@ -8,7 +8,6 @@ public partial class FollowerJumperControl : FollowerControl
     [Export] public float CooldownTime = 4;
     [Export] public float JumpPower = 500;
 
-
     private float ViewRangeSquared => ViewRange * ViewRange;
 
 
@@ -17,10 +16,15 @@ public partial class FollowerJumperControl : FollowerControl
 
     private Timer _cooldownTimer;
 
+    private bool _isServer;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         base._Ready();
+        if (!Multiplayer.IsServer()) return;
+
+        _isServer = true;
 
         _cooldownTimer = new Timer
         {
@@ -67,6 +71,8 @@ public partial class FollowerJumperControl : FollowerControl
 
     public void FinishJump()
     {
+        if (!_isServer)
+            return;
         _currentState = State.Cooldown;
         _cooldownTimer.Start();
     }

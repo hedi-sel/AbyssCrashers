@@ -4,46 +4,40 @@ using AbyssCrashers.world.scripts.helpers;
 
 public partial class CameraMovement : Camera2D
 {
-    [Export] public Vector2 RoomSize = new(19 * 16, 11 * 16);
-
-
     public CameraMovement()
     {
         InstanceHolder.Register(this);
     }
 
-    private Vector2 _officialPosition;
-    private Rect2 _roomBox;
+    public static Vector2 RoomPositionOrigin { get; private set; }
 
     private Vector2 _sceneScale;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _officialPosition = Position;
         _sceneScale = GetParent<Node2D>().Scale;
-
-        var offset = GetViewportRect().Size / _sceneScale - RoomSize;
-        _roomBox = new Rect2(offset / 2, RoomSize);
+        RoomPositionOrigin = (GetViewportRect().Size / _sceneScale - RoomId.RoomSize) / 2;
     }
 
-    public void MoveToNextRoom(CardinalDirection dir)
+    public void MoveToRoom(RoomId room)
     {
-        var movement = RoomSize * dir.ToVector();
         var tween = GetTree().CreateTween();
-        _officialPosition += movement;
-        tween.TweenProperty(this, "position", _officialPosition, 0.3);
+        tween.TweenProperty(this, "position", room.ToPosition(), 0.3);
     }
 
-    public void FollowPlayerAt(Vector2 playerPosition)
+    public override void _Process(double delta)
     {
-        var relativePosition = (playerPosition - GlobalPosition) / _sceneScale;
-        if (relativePosition.X < _roomBox.Position.X)
-            MoveToNextRoom(CardinalDirection.Left);
-        if (relativePosition.X > _roomBox.End.X)
-            MoveToNextRoom(CardinalDirection.Right);
-        if (relativePosition.Y < _roomBox.Position.Y)
-            MoveToNextRoom(CardinalDirection.Up);
-        if (relativePosition.Y > _roomBox.End.Y)
-            MoveToNextRoom(CardinalDirection.Down);
+        base._Process(delta);
+        if (Input.IsKeyPressed(Key.Kp5))
+            MoveToRoom(new RoomId(0, 0));
+        if (Input.IsKeyPressed(Key.Kp6))
+            MoveToRoom(new RoomId(1, 0));
+        if (Input.IsKeyPressed(Key.Kp4))
+            MoveToRoom(new RoomId(-1, 0));
+        if (Input.IsKeyPressed(Key.Kp8))
+            MoveToRoom(new RoomId(0, -1));
+        if (Input.IsKeyPressed(Key.Kp2))
+            MoveToRoom(new RoomId(0, 1));
     }
 }

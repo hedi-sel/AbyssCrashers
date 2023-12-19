@@ -9,6 +9,8 @@ public abstract partial class EntityControl : CharacterBody2D
 
     protected float Health => MaxHealth - _missingHealth;
 
+    public RoomId CurrentRoom { get; protected set; }
+
     public event Action<float> HealthUpdate;
 
     public virtual void AddHealth(float value)

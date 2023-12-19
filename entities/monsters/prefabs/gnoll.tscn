@@ -196,7 +196,6 @@ shape = SubResource("RectangleShape2D_q32vd")
 libraries = {
 "": SubResource("AnimationLibrary_70e3i")
 }
-speed_scale = 0.75
 script = ExtResource("3_4feaq")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

@@ -25,6 +25,22 @@ public partial class MonsterControl : EntityControl
             SetProcess(false);
             return;
         }
+
+        PlayerControl.PlayerMoveRoom += OnPlayerMoveRoom;
+    }
+
+    private void OnPlayerMoveRoom(int playerId, RoomId room)
+    {
+        if (EntityLayer.Players.Any(p => p.CurrentRoom == CurrentRoom))
+        {
+            SetPhysicsProcess(false);
+            SetProcess(false);
+        }
+        else
+        {
+            SetPhysicsProcess(true);
+            SetProcess(true);
+        }
     }
 
     protected PlayerControl GetClosestPlayer()
