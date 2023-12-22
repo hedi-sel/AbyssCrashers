@@ -4,8 +4,13 @@ using Godot;
 
 public record struct RoomId(int X, int Y)
 {
-    public static readonly Vector2 RoomSize = new(19 * 16, 11 * 16);
-    public static readonly Vector2 HalfRoomSize = RoomSize / 2;
+    private static readonly Vector2I RoomTileSize = new(19, 11);
+    public static readonly Vector2I RoomPixelSize = RoomTileSize * 16;
+
+    public static readonly Vector2I RoomStartTile = new(-10, -6);
+    private static readonly Vector2I RoomFullTileSize = new(20, 11);
+
+    private static readonly Vector2 HalfRoomPixelSize = RoomPixelSize / 2;
 
     public RoomId Next(CardinalDirection dir)
         => dir switch
@@ -17,10 +22,12 @@ public record struct RoomId(int X, int Y)
             _ => throw new Exception(),
         };
 
-    public Vector2 ToPosition() => new Vector2(RoomSize.X * X, RoomSize.Y * Y);
+    public Vector2 ToPosition() => new(RoomPixelSize.X * X, RoomPixelSize.Y * Y);
 
-    public static RoomId FromPosition(Vector2 position)
-        => new(
-            (int)Math.Floor((position.X + HalfRoomSize.X) / RoomSize.X),
-            (int)Math.Floor((position.Y + HalfRoomSize.Y) / RoomSize.Y));
+    public static RoomId FromPosition(Vector2 position) => new(
+        (int)Math.Floor((position.X + HalfRoomPixelSize.X) / RoomPixelSize.X),
+        (int)Math.Floor((position.Y + HalfRoomPixelSize.Y) / RoomPixelSize.Y));
+
+    public Rect2I GetTileRect()
+        => new(RoomTileSize * new Vector2I(X, Y) + RoomStartTile, RoomFullTileSize);
 }

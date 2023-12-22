@@ -1,8 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 public partial class FolderSpawner : MultiplayerSpawner
 {
@@ -15,17 +13,10 @@ public partial class FolderSpawner : MultiplayerSpawner
     {
         base._EnterTree();
         using var directory = DirAccess.Open(Folder);
-        directory.ListDirBegin();
-        var file = directory.GetNext();
-        while (file != "")
+        foreach (var res in directory.GetResources<PackedScene>())
         {
-            file = Path.Join(Folder, file);
-            if (file.GetExtension() == "tscn")
-            {
-                AddSpawnableScene(file);
-                PackedScenes.Add(ResourceLoader.Load<PackedScene>(file));
-            }
-            file = directory.GetNext();
+            AddSpawnableScene(res.ResourcePath);
+            PackedScenes.Add(res);
         }
     }
 }

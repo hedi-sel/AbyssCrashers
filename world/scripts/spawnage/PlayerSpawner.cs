@@ -53,7 +53,7 @@ public partial class PlayerSpawner : MultiplayerSpawner
             player.Id = id;
             player.Name = id.ToString();
             _players.Add(id, player);
-            InstanceHolder.Get<EntityLayer>().AddChild(player);
+            GetNode(SpawnPath).AddChild(player);
             player.GlobalPosition = SummonStation.GetPlayerPosition(_currentPlayers);
         }
     }

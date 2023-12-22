@@ -22,7 +22,7 @@ public partial class PlayerControl : EntityControl
     public override void _EnterTree()
     {
         base._EnterTree();
-        InstanceHolder.Get<EntityLayer>().RegisterPlayer(this);
+        InstanceHolder.Get<IEntityLayer>().RegisterPlayer(this);
     }
 
     public override void _Ready()
@@ -173,7 +173,7 @@ public partial class PlayerControl : EntityControl
     public override void _ExitTree()
     {
         base._EnterTree();
-        InstanceHolder.Get<EntityLayer>().UnregisterPlayer(this);
+        InstanceHolder.Get<IEntityLayer>().UnregisterPlayer(this);
     }
 
     protected override void Die()

@@ -7,4 +7,10 @@
   <ItemGroup>
     <Folder Include="world\scripts\spawnage\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="world\scripts\floor_generation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="world\scripts\floor_generation\**" />
+  </ItemGroup>
 </Project>

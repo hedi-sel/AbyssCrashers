@@ -9,7 +9,7 @@ public partial class CameraMovement : Camera2D
         InstanceHolder.Register(this);
     }
 
-    public static Vector2 RoomPositionOrigin { get; private set; }
+    private Vector2 _cameraOriginPosition;
 
     private Vector2 _sceneScale;
 
@@ -17,13 +17,13 @@ public partial class CameraMovement : Camera2D
     public override void _Ready()
     {
         _sceneScale = GetParent<Node2D>().Scale;
-        RoomPositionOrigin = (GetViewportRect().Size / _sceneScale - RoomId.RoomSize) / 2;
+        _cameraOriginPosition = Position;
     }
 
     public void MoveToRoom(RoomId room)
     {
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(this, "position", room.ToPosition(), 0.3);
+        tween.TweenProperty(this, "position", _cameraOriginPosition + room.ToPosition(), 0.3);
     }
 
     public override void _Process(double delta)

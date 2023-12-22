@@ -9,7 +9,7 @@ public partial class MonsterControl : EntityControl
     [Export] public float BumpForce = 1f;
 
     protected AdvancedAnimationPlayer AnimationPlayer;
-    protected EntityLayer EntityLayer;
+    protected IEntityLayer EntityLayer;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -17,7 +17,7 @@ public partial class MonsterControl : EntityControl
         base._Ready();
 
         AnimationPlayer = GetNode<AdvancedAnimationPlayer>(nameof(AnimationPlayer));
-        EntityLayer = GetParent<EntityLayer>();
+        EntityLayer = GetParent<IEntityLayer>();
 
         if (Multiplayer.GetUniqueId() != 1)
         {
@@ -31,7 +31,7 @@ public partial class MonsterControl : EntityControl
 
     private void OnPlayerMoveRoom(int playerId, RoomId room)
     {
-        if (EntityLayer.Players.Any(p => p.CurrentRoom == CurrentRoom))
+        if (EntityLayer.GetPlayers.Any(p => p.CurrentRoom == CurrentRoom))
         {
             SetPhysicsProcess(false);
             SetProcess(false);
@@ -44,7 +44,7 @@ public partial class MonsterControl : EntityControl
     }
 
     protected PlayerControl GetClosestPlayer()
-        => EntityLayer.Players.MinBy(p => p.Position.DistanceSquaredTo(Position));
+        => EntityLayer.GetPlayers.MinBy(p => p.Position.DistanceSquaredTo(Position));
 
     protected override void Flicker()
     {
