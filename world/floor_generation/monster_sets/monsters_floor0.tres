@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://baioqfic3fdgf"]
+
+[ext_resource type="PackedScene" uid="uid://d1ryus6wubeb3" path="res://entities/monsters/prefabs/gnoll_archer.tscn" id="1_i4jne"]
+[ext_resource type="PackedScene" uid="uid://u3u3t5e11xs2" path="res://entities/monsters/prefabs/crab.tscn" id="2_aalin"]
+[ext_resource type="PackedScene" uid="uid://bxjcby4yxi80m" path="res://entities/monsters/prefabs/rat.tscn" id="3_j6122"]
+[ext_resource type="PackedScene" uid="uid://bcvskelt87rp2" path="res://entities/monsters/prefabs/slime.tscn" id="4_vymxm"]
+[ext_resource type="Script" path="res://world/floor_generation/monster_sets/MonsterSetResource.cs" id="5_ixhi8"]
+
+[resource]
+script = ExtResource("5_ixhi8")
+Floor = 0
+Follower = ExtResource("3_j6122")
+Jumper = ExtResource("4_vymxm")
+Archer = ExtResource("1_i4jne")
+Diagonal = ExtResource("2_aalin")

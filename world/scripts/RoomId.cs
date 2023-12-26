@@ -22,7 +22,9 @@ public record struct RoomId(int X, int Y)
             _ => throw new Exception(),
         };
 
-    public Vector2 ToPosition() => new(RoomPixelSize.X * X, RoomPixelSize.Y * Y);
+    public Vector2 GetPosition() => new(RoomPixelSize.X * X, RoomPixelSize.Y * Y);
+
+    public Vector2 TileToGlobalPosition(Vector2I tilePosition) => GetPosition() + tilePosition * 16;
 
     public static RoomId FromPosition(Vector2 position) => new(
         (int)Math.Floor((position.X + HalfRoomPixelSize.X) / RoomPixelSize.X),

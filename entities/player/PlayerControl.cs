@@ -157,13 +157,12 @@ public partial class PlayerControl : EntityControl
 
     private void SetRoom(RoomId room)
     {
-        PlayerMoveRoom?.Invoke(PlayerOwner, room);
-
         CurrentRoom = room;
         if (PlayerOwner == Multiplayer.GetUniqueId())
             SetCamera(room.X, room.Y);
         else
             RpcId(PlayerOwner, nameof(SetCamera), room.X, room.Y);
+        PlayerMoveRoom?.Invoke(PlayerOwner, room);
     }
 
     [Rpc]

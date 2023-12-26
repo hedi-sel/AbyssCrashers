@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cphbhyiqcuc5c"]
-
-[ext_resource type="PackedScene" uid="uid://benvf3mi6lsrr" path="res://world/floor_generation/prefabs_resources/player_spawner.tscn" id="1_basst"]
-[ext_resource type="Script" path="res://world/floor_generation/RoomElementResource.cs" id="2_nccsf"]
-
-[resource]
-script = ExtResource("2_nccsf")
-Type = 1
-Prefab = ExtResource("1_basst")

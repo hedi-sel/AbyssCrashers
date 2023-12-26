@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Numerics;
+using Godot;
 
 public class RoomTemplate
 {
@@ -8,16 +8,16 @@ public class RoomTemplate
         Elements = elements;
     }
 
-    public RoomElement[] Elements;
+    public readonly RoomElement[] Elements;
 
     public static RoomTemplate StartingRoom =>
-        new(new RoomElement(RoomElementType.PlayerSpawner, new Vector2(-10, -10)));
-}
+        new(new RoomElement(RoomElementType.PlayerSpawner, Vector2I.Zero));
 
-public record RoomElement(RoomElementType Type, Vector2 Position);
-
-public enum RoomElementType
-{
-    None,
-    PlayerSpawner,
+    public static RoomTemplate MonsterRoom =>
+        new(
+            new MonsterRoomElement(MonsterType.Archer, new Vector2I(-8, -4)),
+            new MonsterRoomElement(MonsterType.Follower, new Vector2I(8,-4)),
+            new MonsterRoomElement(MonsterType.Diagonal, new Vector2I(-8, 4)),
+            new MonsterRoomElement(MonsterType.Jumper, new Vector2I(8, 4))
+        );
 }

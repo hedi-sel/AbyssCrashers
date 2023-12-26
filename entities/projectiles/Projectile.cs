@@ -38,7 +38,7 @@ public partial class Projectile : Area2D
     {
         if (body is not EntityControl entity)
         {
-            GD.PrintErr("No EntityControl found");
+            Destroy();
             return;
         }
 

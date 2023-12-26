@@ -23,7 +23,7 @@ public partial class CameraMovement : Camera2D
     public void MoveToRoom(RoomId room)
     {
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(this, "position", _cameraOriginPosition + room.ToPosition(), 0.3);
+        tween.TweenProperty(this, "position", _cameraOriginPosition + room.GetPosition(), 0.3);
     }
 
     public override void _Process(double delta)

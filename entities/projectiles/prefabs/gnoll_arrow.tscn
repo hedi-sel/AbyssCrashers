@@ -8,7 +8,7 @@ atlas = ExtResource("2_yeccd")
 region = Rect2(64, 144, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76jji"]
-size = Vector2(5, 12.75)
+size = Vector2(5, 7.375)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fvbue"]
 properties/0/path = NodePath(".:position")
@@ -23,6 +23,7 @@ properties/2/replication_mode = 2
 
 [node name="Arrow" type="Area2D"]
 collision_layer = 0
+collision_mask = 13
 script = ExtResource("1_ahnwn")
 Range = 200.0
 Speed = 75.0
@@ -35,7 +36,7 @@ rotation = -0.785398
 texture = SubResource("AtlasTexture_5a648")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -3.6875)
 shape = SubResource("RectangleShape2D_76jji")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

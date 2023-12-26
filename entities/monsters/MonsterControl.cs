@@ -16,31 +16,46 @@ public partial class MonsterControl : EntityControl
     {
         base._Ready();
 
+        SetInactive();
+
         AnimationPlayer = GetNode<AdvancedAnimationPlayer>(nameof(AnimationPlayer));
-        EntityLayer = GetParent<IEntityLayer>();
 
         if (Multiplayer.GetUniqueId() != 1)
         {
-            SetPhysicsProcess(false);
-            SetProcess(false);
             return;
         }
 
-        PlayerControl.PlayerMoveRoom += OnPlayerMoveRoom;
+        EntityLayer = GetParent<IEntityLayer>();
+
+        CheckPlayersPosition();
+
+        PlayerControl.PlayerMoveRoom += (_, _) => CheckPlayersPosition();
     }
 
-    private void OnPlayerMoveRoom(int playerId, RoomId room)
+    public void SetRoom(RoomId room)
+    {
+        if (CurrentRoom != default) GD.PushError($"{nameof(MonsterControl)}: Room can only be set once");
+        CurrentRoom = room;
+    }
+
+    private void SetInactive()
+    {
+        SetPhysicsProcess(false);
+        SetProcess(false);
+    }
+
+    private void SetActive()
+    {
+        SetPhysicsProcess(true);
+        SetProcess(true);
+    }
+
+    private void CheckPlayersPosition()
     {
         if (EntityLayer.GetPlayers.Any(p => p.CurrentRoom == CurrentRoom))
-        {
-            SetPhysicsProcess(false);
-            SetProcess(false);
-        }
+            SetActive();
         else
-        {
-            SetPhysicsProcess(true);
-            SetProcess(true);
-        }
+            SetInactive();
     }
 
     protected PlayerControl GetClosestPlayer()

@@ -9,8 +9,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="world\scripts\floor_generation\**" />
+    <Compile Remove="world\floor_generation\prefabs_elements\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="world\scripts\floor_generation\**" />
+    <EmbeddedResource Remove="world\floor_generation\prefabs_elements\**" />
   </ItemGroup>
 </Project>
